@@ -1,0 +1,15 @@
+repository_type: pipeline
+
+nf_core_version: 3.3.2
+
+lint: {}
+
+template:
+  org: nf-core
+  name: crispresso
+  description: A bioinformatics pipeline for analyzing CRISPR genome editing experiments
+  author: Sathya Jali
+  version: 1.0.0dev
+  force: true
+  outdir: /Users/sathyajali/Documents/nf-core-crispresso
+  is_nfcore: true
