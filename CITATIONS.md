@@ -10,6 +10,10 @@
 
 ## Pipeline tools
 
+- [CRISPResso2](https://pubmed.ncbi.nlm.nih.gov/30809026/)
+
+> Clement K, Rees H, Canver MC, Gehrke JM, Farouni R, Hsu JY, Cole MA, Liu DR, Joung JK, Bauer DE, Pinello L. CRISPResso2 provides accurate and rapid genome editing sequence analysis. Nat Biotechnol. 2019 Mar;37(3):224-226. doi: 10.1038/s41587-019-0032-3. Epub 2019 Feb 25. PubMed PMID: 30809026; PubMed Central PMCID: PMC6544068.
+
 - [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
 > Andrews, S. (2010). FastQC: A Quality Control Tool for High Throughput Sequence Data [Online].

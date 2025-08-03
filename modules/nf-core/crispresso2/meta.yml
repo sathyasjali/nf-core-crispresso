@@ -1,0 +1,58 @@
+name: "crispresso2"
+description: "Analysis of deep sequencing data for rapid and intuitive interpretation of genome editing experiments"
+keywords:
+  - crispr
+  - genome editing
+  - amplicon sequencing
+  - indel analysis
+tools:
+  - "crispresso2":
+      description: "CRISPResso2 is a software pipeline designed to enable rapid and intuitive interpretation of genome editing experiments"
+      homepage: "https://github.com/pinellolab/CRISPResso2"
+      documentation: "https://docs.crispresso.com/"
+      tool_dev_url: "https://github.com/pinellolab/CRISPResso2"
+      doi: "10.1038/s41587-019-0032-3"
+      licence: "['AGPL-3.0']"
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - reads:
+      type: file
+      description: List of input FastQ files of size 1 or 2 for single-end or paired-end data, respectively.
+      pattern: "*.{fastq,fq,fastq.gz,fq.gz}"
+  - amplicon_seq:
+      type: string
+      description: Amplicon sequence expected after genome editing
+  - guide_seq:
+      type: string
+      description: Guide RNA sequence (without PAM)
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - results:
+      type: directory
+      description: CRISPResso2 output directory containing all analysis results
+      pattern: "CRISPResso_on_*"
+  - html:
+      type: file
+      description: HTML report files
+      pattern: "*.html"
+  - txt:
+      type: file
+      description: Text output files with quantification results
+      pattern: "*.txt"
+
+authors:
+  - "@sathyajali"
