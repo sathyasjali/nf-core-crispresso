@@ -7,3 +7,8 @@ testing/
 testing*
 *.pyc
 null/
+# Exclude REDRAW test data
+test_data/
+results_redraw_stub/
+samplesheet_redraw.csv
+test_publication_data.md
