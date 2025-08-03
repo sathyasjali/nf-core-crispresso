@@ -14,7 +14,7 @@
 [![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
 [![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)
 
-**✅ PRODUCTION READY - Successfully tested with REDRAW publication data (Kim et al., 2022)**
+**✅ PRODUCTION READY - Successfully tested and validated**
 
 ## Introduction
 
@@ -84,15 +84,15 @@ The pipeline generates:
 
 ## Testing Status ✅
 
-Successfully tested with:
-- **REDRAW publication data** (Kim et al., 2022)
+Successfully validated with:
 - **Docker container compatibility** (linux/amd64 & linux/arm64/v8)
 - **Stub mode validation**
 - **Full parameter schema validation**
+- **Pipeline workflow testing**
 
 ## Credits
 
-This pipeline was developed for CRISPR analysis with specific focus on REDRAW (RNA encoded DNA replacement of alleles with CRISPR) research applications.
+This pipeline provides a robust framework for CRISPR editing analysis using industry-standard tools and best practices.
 
 ### Citations
 
@@ -100,10 +100,8 @@ If you use nf-core/crispresso for your analysis, please cite:
 
 - **CRISPResso2**: Clement K, Rees H, Canver MC, et al. CRISPResso2 provides accurate and rapid genome editing sequence analysis. Nat Biotechnol. 2019;37(3):224-226.
 
-- **REDRAW Technology**: Kim Y., Pierce E., Brown M., et al. A novel mechanistic framework for precise sequence replacement using reverse transcriptase and diverse CRISPR-Cas systems. bioRxiv. 2022. doi: 10.1101/2022.12.13.520319
-
 - **nf-core**: Ewels PA, Peltzer A, Fillinger S, et al. The nf-core framework for community-curated bioinformatics pipelines. Nat Biotechnol. 2020;38(3):276-278.
 
 ## Acknowledgments
 
-Developed with support from Pairwise for CRISPR editing analysis and REDRAW research applications.
+This pipeline uses open-source tools and follows nf-core best practices for reproducible bioinformatics analysis.
