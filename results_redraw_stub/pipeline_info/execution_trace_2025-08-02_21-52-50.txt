@@ -1,0 +1,4 @@
+task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
+2	fa/434d02	75851	NFCORE_CRISPRESSO:CRISPRESSO:CRISPRESSO2 (REDRAW_test)	COMPLETED	0	2025-08-02 21:52:57.367	39ms	0ms	-	-	-	-	-
+1	af/c6a0aa	75878	NFCORE_CRISPRESSO:CRISPRESSO:FASTQC (REDRAW_test)	COMPLETED	0	2025-08-02 21:52:57.409	38ms	0ms	-	-	-	-	-
+3	c2/367fa3	75906	NFCORE_CRISPRESSO:CRISPRESSO:MULTIQC	COMPLETED	0	2025-08-02 21:52:57.458	59ms	0ms	-	-	-	-	-

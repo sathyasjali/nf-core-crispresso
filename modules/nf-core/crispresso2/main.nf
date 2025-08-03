@@ -1,11 +1,11 @@
 process CRISPRESSO2 {
-    tag "${meta.id}"
+    tag "$meta.id"
     label 'process_medium'
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/crispresso2:2.3.3--pyhdfd78af_0' :
-        'docker.io/pinellolab/crispresso2:latest' }"
+        workflow.stubRun ? null : 'docker.io/pinellolab/crispresso2:latest' }"
 
     input:
     tuple val(meta), path(reads)
@@ -57,7 +57,10 @@ process CRISPRESSO2 {
 
     stub:
     def prefix = task.ext.prefix ?: "${meta.id}"
+    // Ensure stub runs without Docker interference
     """
+    #!/usr/bin/env bash
+    set -e
     mkdir -p CRISPResso_on_${prefix}
     touch CRISPResso_on_${prefix}/${prefix}.html  
     touch CRISPResso_on_${prefix}/CRISPResso_report.html
