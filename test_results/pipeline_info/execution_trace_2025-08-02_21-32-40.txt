@@ -1,4 +1,0 @@
-task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
-2	0f/f054d2	60648	NFCORE_CRISPRESSO:CRISPRESSO:FASTQC (test_sample)	CACHED	0	2025-08-02 21:31:51.114	37ms	0ms	-	-	-	-	-
-1	ee/289aab	60675	NFCORE_CRISPRESSO:CRISPRESSO:CRISPRESSO2 (test_sample)	CACHED	0	2025-08-02 21:31:51.155	38ms	0ms	-	-	-	-	-
-3	af/84eae0	61660	NFCORE_CRISPRESSO:CRISPRESSO:MULTIQC	COMPLETED	0	2025-08-02 21:32:49.981	58ms	0ms	-	-	-	-	-
