@@ -36,6 +36,8 @@ The pipeline performs the following steps:
 
 2. Install any of [`Docker`](https://docs.docker.com/engine/installation/), [`Singularity`](https://www.sylabs.io/guides/3.0/user-guide/) (you can follow [this tutorial](https://singularity-tutorial.github.io/01-installation/)), [`Podman`](https://podman.io/), [`Shifter`](https://nersc.gitlab.io/development/shifter/how-to-use/) or [`Charliecloud`](https://hpc.github.io/charliecloud/) for full pipeline reproducibility
 
+   > **Docker Recommendation**: This pipeline has been optimized for Docker using biocontainers for reliable CRISPResso2 execution. Both Docker and Conda profiles are fully supported.
+
 3. Create a samplesheet with your input data that looks as follows:
 
 `samplesheet.csv`:
@@ -96,18 +98,37 @@ The pipeline generates:
 ## Testing Status ✅
 
 Successfully validated with:
-- **Docker container compatibility** (linux/amd64 & linux/arm64/v8)
-- **Stub mode validation**
-- **Full parameter schema validation**
-- **Pipeline workflow testing**
+- **Docker container compatibility** - Uses biocontainers for optimal Nextflow integration
+- **Stub mode validation** - Full pipeline structure testing
+- **Full parameter schema validation** - Complete parameter verification
+- **Pipeline workflow testing** - End-to-end analysis validation
+- **Multi-platform support** - Compatible with linux/amd64 and linux/arm64/v8
+
+### Docker Container Information
+
+This pipeline uses `quay.io/biocontainers/crispresso2:2.3.3--py39hff726c5_0` for Docker execution, which provides:
+- Full CRISPResso2 functionality with Nextflow compatibility
+- Reliable container entry points for workflow execution
+- Cross-platform compatibility for different architectures
 
 ## Pipeline output
 
 For more details about the output files and reports, please refer to the [output documentation](docs/output.md).
 
+## Recent Updates
+
+### Docker Container Optimization (August 2025)
+- **Fixed Docker compatibility**: Switched from `pinellolab/crispresso2:latest` to `quay.io/biocontainers/crispresso2:2.3.3--py39hff726c5_0`
+- **Improved Nextflow integration**: Biocontainers provide better workflow compatibility than official containers
+- **Enhanced stability**: Resolves container entry point issues that caused execution failures
+- **Validated performance**: Successfully tested with NHEJ datasets producing complete analysis outputs
+
 ## Credits
 
 This pipeline provides a robust framework for CRISPR editing analysis using industry-standard tools and best practices.
+
+**Core Tool Credit:**
+This pipeline is built around CRISPResso2, developed by the [Pinello Lab](https://www.pinellolab.org/) at Massachusetts General Hospital and the Broad Institute. We acknowledge their foundational work in CRISPR analysis tools.
 
 Many thanks to those who have contributed to this pipeline development and testing.
 
@@ -120,6 +141,14 @@ For further information or help, don't hesitate to get in touch on the [Slack #c
 ### Citations
 
 If you use nf-core/crispresso for your analysis, please cite it using the following doi: [10.5281/zenodo.1400710](https://doi.org/10.5281/zenodo.1400710)
+
+**Please also cite CRISPResso2:**
+
+> **CRISPResso2 provides accurate and rapid genome editing sequence analysis.**
+>
+> Kendell Clement, Holger Rees, Matthew C. Canver, Jason M. Gehrke, Reza Farouni, Josue K. Nye, Poorvi Kulkarni, Carrie A. Whitfield, Evangelos Karagiannis, M. Inmaculada Leyva-Diaz, Gerald Schwartz, Alex Packer, Scot A. Wolfe, J. Keith Joung, Stuart H. Orkin, Luca Pinello.
+>
+> _Nature Biotechnology._ 2019 Mar;37(3):224-226. doi: [10.1038/s41587-019-0032-3](https://doi.org/10.1038/s41587-019-0032-3). PMID: 30778233.
 
 An extensive list of references for the tools used by the pipeline can be found in the `CITATIONS.md` file.
 
