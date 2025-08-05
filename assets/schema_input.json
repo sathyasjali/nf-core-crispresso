@@ -26,8 +26,18 @@
                 "exists": true,
                 "pattern": "^([\\S\\s]*\\/)?[^\\s\\/]+\\.f(ast)?q\\.gz$",
                 "errorMessage": "FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
+            },
+            "amplicon_seq": {
+                "type": "string",
+                "pattern": "^[ATCGNatcgn]+$",
+                "errorMessage": "Amplicon sequence must contain only valid DNA bases (A, T, C, G, N) and cannot be empty"
+            },
+            "guide_seq": {
+                "type": "string",
+                "pattern": "^[ATCGNatcgn]*$",
+                "errorMessage": "Guide sequence must contain only valid DNA bases (A, T, C, G, N) or be empty"
             }
         },
-        "required": ["sample", "fastq_1"]
+        "required": ["sample", "fastq_1", "amplicon_seq"]
     }
 }

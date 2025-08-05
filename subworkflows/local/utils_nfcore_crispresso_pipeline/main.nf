@@ -70,25 +70,23 @@ workflow PIPELINE_INITIALISATION {
 
     //
     // Create channel from input file provided through params.input
+    // Using nf-core compliant approach with schema validation
     //
-
     Channel
         .fromList(samplesheetToList(params.input, "${projectDir}/assets/schema_input.json"))
         .map {
-            meta, fastq_1, fastq_2 ->
-                if (!fastq_2) {
-                    return [ meta.id, meta + [ single_end:true ], [ fastq_1 ] ]
-                } else {
-                    return [ meta.id, meta + [ single_end:false ], [ fastq_1, fastq_2 ] ]
-                }
-        }
-        .groupTuple()
-        .map { samplesheet ->
-            validateInputSamplesheet(samplesheet)
-        }
-        .map {
-            meta, fastqs ->
-                return [ meta, fastqs.flatten() ]
+            meta, fastq_1, fastq_2, amplicon_seq, guide_seq ->
+                // Create proper meta map with per-sample sequences
+                def new_meta = meta + [
+                    single_end: !fastq_2,
+                    amplicon_seq: amplicon_seq ?: "",
+                    guide_seq: guide_seq ?: ""
+                ]
+                
+                // Create reads list
+                def reads = !fastq_2 ? [fastq_1] : [fastq_1, fastq_2]
+                
+                return [new_meta, reads]
         }
         .set { ch_samplesheet }
 

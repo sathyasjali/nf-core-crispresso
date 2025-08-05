@@ -9,12 +9,12 @@ process CRISPRESSO2 {
 
     input:
     tuple val(meta), path(reads)
-    val amplicon_seq
-    val guide_seq
+    val amplicon_seq_fallback
+    val guide_seq_fallback
 
     output:
     tuple val(meta), path("CRISPResso_on_*")        , emit: results
-    tuple val(meta), path("CRISPResso_on_*/*.html") , emit: html
+    tuple val(meta), path("*.html")                 , emit: html
     tuple val(meta), path("CRISPResso_on_*/*.txt")  , emit: txt
     path "versions.yml"                             , emit: versions
 
@@ -24,6 +24,11 @@ process CRISPRESSO2 {
     script:
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
+    
+    // Use amplicon and guide from meta if available, otherwise fallback to input parameters
+    def amplicon_seq = meta.amplicon_seq ?: amplicon_seq_fallback ?: ""
+    def guide_seq = meta.guide_seq ?: guide_seq_fallback ?: ""
+    
     def amplicon_param = amplicon_seq ? "-a ${amplicon_seq}" : ""
     def guide_param = guide_seq ? "-g ${guide_seq}" : ""
     

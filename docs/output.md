@@ -13,6 +13,8 @@ The directories listed below will be created in the results directory after the 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
 - [FastQC](#fastqc) - Raw read QC
+- [CRISPResso2](#crispresso2) - CRISPR editing analysis
+- [Results Summary](#results-summary) - CSV files with quantitative analysis
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
@@ -28,6 +30,51 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 </details>
 
 [FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) gives general quality metrics about your sequenced reads. It provides information about the quality score distribution across your reads, per base sequence content (%A/T/G/C), adapter contamination and overrepresented sequences. For further reading and documentation see the [FastQC help pages](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/).
+
+### CRISPResso2
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `crispresso2/`
+  - `CRISPResso_on_*/*.html`: Interactive HTML report with detailed analysis
+  - `CRISPResso_on_*/CRISPResso_quantification_of_editing_frequency.txt`: Editing efficiency summary
+  - `CRISPResso_on_*/Modification_count_vectors.txt`: Position-specific modification counts
+  - `CRISPResso_on_*/Indel_histogram.txt`: Distribution of insertion/deletion sizes
+  - `CRISPResso_on_*/Effect_vector_combined.txt`: Combined effect scoring per position
+
+</details>
+
+[CRISPResso2](https://crispresso.pinellolab.partners.org/) provides comprehensive analysis of CRISPR editing outcomes. It quantifies editing efficiency, identifies the most frequent modifications, and provides detailed statistics on insertions, deletions, and substitutions at each position in the amplicon.
+
+### Results Summary
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `results_summary/`
+  - `*_summary.csv`: Key metrics summary per sample
+  - `*_detailed_results.csv`: Position-specific modification data
+
+</details>
+
+The results summary module creates machine-readable CSV files for downstream analysis:
+
+**Summary CSV** contains:
+- **Sample identification**: Sample ID and amplicon information
+- **Read statistics**: Total read count, mapped read count, mapping percentages  
+- **Reference mapping**: Number of reads mapped to reference sequence
+- **Indel analysis**: Total indels, insertion/deletion counts, most frequent indel sizes
+- **Editing efficiency**: Overall modification rates and editing percentages
+- **Quality metrics**: FastQC statistics (total sequences, GC content, read length)
+- **Amplicon details**: Guide RNA and amplicon sequence information
+
+**Detailed CSV** contains:
+- Position-by-position modification frequencies (insertions, deletions, substitutions)
+- Read depth information per amplicon position
+- Statistical data ready for downstream analysis and custom plotting
+
+These CSV files enable easy integration with statistical software (R, Python) and spreadsheet applications for further analysis and visualization.
 
 ### MultiQC
 

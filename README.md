@@ -124,9 +124,30 @@ For more details and further functionality, please refer to the [usage documenta
 The pipeline generates:
 
 - **CRISPResso2 Analysis**: Detailed editing analysis with HTML reports
-- **Quality Control**: FastQC reports for input data
+- **Quality Control**: FastQC reports for input data  
 - **Summary Reports**: MultiQC aggregated reports
+- **CSV Results**: Machine-readable summary and detailed analysis files
 - **Pipeline Information**: Execution reports and software versions
+
+### CSV Output Files
+
+The pipeline automatically generates CSV files for easy downstream analysis:
+
+#### Summary CSV (`*_summary.csv`)
+Contains key metrics per sample:
+- **Sample identification**: Sample ID and amplicon information
+- **Read statistics**: Total read count, mapped read count, mapping percentages  
+- **Reference mapping**: Number of reads mapped to reference sequence
+- **Indel analysis**: Total indels, insertion/deletion counts, most frequent indel sizes
+- **Editing efficiency**: Overall modification rates and editing percentages
+- **Quality metrics**: FastQC statistics (total sequences, GC content, read length)
+- **Amplicon details**: Guide RNA and amplicon sequence information
+
+#### Detailed CSV (`*_detailed_results.csv`)  
+Position-specific modification data:
+- Per-position insertion/deletion/substitution frequencies
+- Quantitative data for plotting and statistical analysis
+- Compatible with R, Python, Excel for further analysis
 
 ## Testing Status ✅
 
