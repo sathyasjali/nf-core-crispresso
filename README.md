@@ -21,11 +21,32 @@
 
 ## Pipeline Summary
 
+![nf-core/crispresso metro map](docs/images/nf-core-crispresso_metro_map.png)
+
 The pipeline performs the following steps:
 
-1. **Quality Control** ([FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
-2. **CRISPR Analysis** ([CRISPResso2](https://crispresso.pinellolab.partners.org/)) 
-3. **Report Generation** ([MultiQC](http://multiqc.info/))
+1. **Read Quality Control** ([FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
+   - Raw read quality assessment and visualization
+   - Generates HTML reports for sequence quality metrics
+
+2. **CRISPR Editing Analysis** ([CRISPResso2](https://crispresso.pinellolab.partners.org/)) 
+   - Sequence alignment to reference amplicon
+   - Quantification of insertions, deletions, and substitutions
+   - Statistical analysis of editing efficiency
+   - Generation of comprehensive editing reports and visualizations
+
+3. **Aggregate Reporting** ([MultiQC](http://multiqc.info/))
+   - Combines FastQC and CRISPResso2 results
+   - Creates unified HTML dashboard
+   - Quality control summary across all samples
+
+### Workflow Overview:
+```
+Input FASTQ Files → FastQC → CRISPResso2 → MultiQC → Final Reports
+                              ↓
+                    Amplicon Reference
+                    Guide RNA Sequence
+```
 
 ## Quick Start
 
