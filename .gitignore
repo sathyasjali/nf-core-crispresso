@@ -12,3 +12,7 @@ test_data/
 results_redraw_stub/
 samplesheet_redraw.csv
 test_publication_data.md
+
+# Exclude test result directories
+nhej_*_results/
+nhej_docker_debug/

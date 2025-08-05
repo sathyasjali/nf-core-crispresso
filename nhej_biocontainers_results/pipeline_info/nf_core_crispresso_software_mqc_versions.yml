@@ -1,5 +1,0 @@
-FASTQC:
-  fastqc: 0.12.1
-Workflow:
-    nf-core/crispresso: v1.0.0dev
-    Nextflow: 24.10.5
