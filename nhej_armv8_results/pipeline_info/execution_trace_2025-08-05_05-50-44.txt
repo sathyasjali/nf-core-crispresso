@@ -1,0 +1,3 @@
+task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
+2	4a/ceff27	25792	NFCORE_CRISPRESSO:CRISPRESSO:CRISPRESSO2 (nhej_test)	FAILED	0	2025-08-05 05:50:51.038	17.6s	17.6s	-	-	-	-	-
+1	18/2bcd72	25956	NFCORE_CRISPRESSO:CRISPRESSO:FASTQC (nhej_test)	COMPLETED	0	2025-08-05 05:51:08.665	4.6s	5s	143.9%	450.3 MB	19.1 GB	14.4 MB	4.9 MB

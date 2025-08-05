@@ -21,7 +21,10 @@
 
 ## Pipeline Summary
 
-![nf-core/crispresso metro map](docs/images/nf-core-crispresso_metro_map.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/nf-core-crispresso_metro_map.png">
+  <img alt="nf-core/crispresso metro map" src="docs/images/nf-core-crispresso_metro_map.png">
+</picture>
 
 The pipeline performs the following steps:
 
@@ -42,10 +45,19 @@ The pipeline performs the following steps:
 
 ### Workflow Overview:
 ```
-Input FASTQ Files → FastQC → CRISPResso2 → MultiQC → Final Reports
-                              ↓
-                    Amplicon Reference
-                    Guide RNA Sequence
+┌─────────────────┐    ┌─────────┐    ┌─────────────────┐
+│   FASTQ Files   │────▶│ FastQC  │────▶│  Quality Reports │
+│  (SE/PE reads)  │    └─────────┘    └─────────────────┘
+└─────────────────┘           │                    │
+         │                    ▼                    ▼
+┌─────────────────┐    ┌─────────────┐    ┌─────────────────┐
+│ Amplicon + Guide│────▶│ CRISPResso2 │────▶│ Editing Analysis│
+│   Sequences     │    └─────────────┘    └─────────────────┘
+└─────────────────┘           │                    │
+                              ▼                    ▼
+                     ┌─────────────┐    ┌─────────────────┐
+                     │   MultiQC   │────▶│ Final Dashboard │
+                     └─────────────┘    └─────────────────┘
 ```
 
 ## Quick Start
