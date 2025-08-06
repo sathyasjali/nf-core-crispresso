@@ -1,3 +1,6 @@
+# nf-core/crispresso samplesheet template
+# Replace paths with your FASTQ files and add amplicon/guide sequences as needed
+# For test data examples, see other samplesheets in this directory
 sample,fastq_1,fastq_2
 CONTROL_PAIRED_END,/path/to/fastq/files/AEG588A1_S1_L002_R1_001.fastq.gz,/path/to/fastq/files/AEG588A1_S1_L002_R2_001.fastq.gz
 TREATED_SINGLE_END,/path/to/fastq/files/AEG588A4_S4_L003_R1_001.fastq.gz,

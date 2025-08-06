@@ -73,6 +73,13 @@ The pipeline performs the following steps:
                                          └─────────────────┘
 ```
 
+## Quick Test
+
+Test the pipeline with built-in data:
+```bash
+nextflow run sathyasjali/nf-core-crispresso -profile test,docker --outdir results
+```
+
 ## Quick Start
 
 > **Note**

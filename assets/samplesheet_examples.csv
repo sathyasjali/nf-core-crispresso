@@ -1,3 +1,7 @@
+# Example Samplesheets - Multiple analysis types demonstration
+# Shows: Base editing, Custom amplicons, NHEJ paired-end analysis
+# Copy and modify this file for your own data
+# For additional validation data, see: https://github.com/pinellolab/CRISPResso2/tree/master/tests
 sample,fastq_1,fastq_2,amplicon_seq,guide_seq
 base_editor_sample,test_data/publication/base_editor.fastq.gz,,TTCGAGCTCAGCCTGAGTGTTGAGGCCCCAGTGGCTGCTCTGGGGGCCTCCTGAGTTTCTCATCTGTGCCCCTCCCTCCCTGGCCCAGGTGAAGGTGTGGTTCCAGAACCGGAGGACAAAGTACAAACGGCAGAAGCTGGAGGAGGAAGGGCCTGAGTCCGAGCAGAAGAAGAAGGGCTCCCATCACATCAACCGGTGGCGCATTGCCACGAAGCAGGCCAATGGGGAGGACATCGATGTCACCTCCAAT,
 example_with_guide,test_data/publication/base_editor.fastq.gz,,TCCCATCACATCAACCGGTGGCGCATTGCCACGAAGCAGGCCAATGGGGAGGACATCGATGTCACCTCCAATGACTAGGGTGGGCAACCGGTTGTAACGAAGGTGTGAAGCTGAGCTG,GGCGCATTGCCACGAAGCAG

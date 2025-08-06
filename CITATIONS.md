@@ -22,6 +22,17 @@
 
 > Ewels P, Magnusson M, Lundin S, Käller M. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics. 2016 Oct 1;32(19):3047-8. doi: 10.1093/bioinformatics/btw354. Epub 2016 Jun 16. PubMed PMID: 27312411; PubMed Central PMCID: PMC5039924.
 
+## Test Data
+
+The test datasets included in this pipeline (`test_data/publication/`) are synthetic datasets designed for pipeline validation and demonstration purposes. These datasets simulate typical CRISPR editing experiments:
+
+- **Base Editor Test Data**: Simulates precise base editing without insertions/deletions
+- **NHEJ Test Data**: Simulates standard non-homologous end joining with insertions/deletions
+
+For additional validation datasets, users can access the official CRISPResso2 test data:
+
+> Clement K, Rees H, Canver MC, et al. CRISPResso2 provides accurate and rapid genome editing sequence analysis. Test datasets available at: https://github.com/pinellolab/CRISPResso2/tree/master/tests
+
 ## Software packaging/containerisation tools
 
 - [Anaconda](https://anaconda.com)

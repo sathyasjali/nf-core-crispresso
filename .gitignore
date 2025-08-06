@@ -2,17 +2,31 @@
 work/
 data/
 results/
+results_*/
 .DS_Store
 testing/
 testing*
 *.pyc
 null/
-# Exclude REDRAW test data
-test_data/
-results_redraw_stub/
+
+# Test result directories
+*_results/
+*_test/
+*_debug/
+
+# Nextflow temporary files
+.nextflow/
+trace.txt
+timeline.html
+report.html
+
+# REDRAW and additional test data (keep in local only)
+*REDRAW*
+test_data/downloaded_datasets/
 samplesheet_redraw.csv
 test_publication_data.md
+ADDITIONAL_TEST_DATA.md
 
-# Exclude test result directories
-nhej_*_results/
-nhej_docker_debug/
+# Allow essential test data
+!test_data/publication/
+!test_data/publication/*.fastq.gz
