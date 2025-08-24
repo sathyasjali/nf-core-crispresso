@@ -32,7 +32,7 @@ The pipeline performs the following steps:
    - Raw read quality assessment and visualization
    - Generates HTML reports for sequence quality metrics
 
-2. **CRISPR Editing Analysis** ([CRISPResso2](https://crispresso.pinellolab.partners.org/)) 
+2. **CRISPR Editing Analysis** ([CRISPResso2](https://crispresso.pinellolab.partners.org/))
    - Sequence alignment to reference amplicon (per-sample or global)
    - Quantification of insertions, deletions, and substitutions
    - Statistical analysis of editing efficiency
@@ -51,19 +51,19 @@ The pipeline performs the following steps:
 
 ### Workflow Overview:
 ```
-┌─────────────────┐    ┌─────────┐    ┌─────────────────┐
-│   FASTQ Files   │────▶│ FastQC  │────▶│  Quality Reports │
-│  (SE/PE reads)  │    └─────────┘    └─────────────────┘
+┌─────────────────┐     ┌─────────┐     ┌─────────────────┐
+│   FASTQ Files   │────▶│ FastQC  │────▶│  Quality Reports│
+│  (SE/PE reads)  │     └─────────┘     └─────────────────┘
 └─────────────────┘           │                    │
          │                    ▼                    ▼
-┌─────────────────┐    ┌─────────────┐    ┌─────────────────┐
+┌─────────────────┐     ┌─────────────┐     ┌─────────────────┐
 │ Per-Sample or   │────▶│ CRISPResso2 │────▶│ Editing Analysis│
-│ Global Amplicon │    └─────────────┘    └─────────────────┘
+│ Global Amplicon │     └─────────────┘     └─────────────────┘
 │ + Guide Seqs    │           │                    │
 └─────────────────┘           ▼                    ▼
-                     ┌─────────────┐    ┌─────────────────┐
+                     ┌─────────────-┐    ┌─────────────────┐
                      │Results Summary│────▶│   CSV Reports   │
-                     │  (3-Tier)   │    │ (Summary,Detail, │
+                     │  (3-Tier)     │    │ (Summary,Detail, │
                      └─────────────┘    │  Reference)     │
                               │         └─────────────────┘
                               ▼                    │
@@ -162,7 +162,7 @@ For more details and further functionality, please refer to the [usage documenta
 ### Sequence Specification (Choose One Approach)
 
 **Option 1: Global Sequences (Traditional)**
-- `--amplicon_seq`: Reference amplicon sequence for CRISPResso analysis  
+- `--amplicon_seq`: Reference amplicon sequence for CRISPResso analysis
 - `--guide_seq`: Guide RNA sequence used for targeting
 
 **Option 2: Per-Sample Sequences (Enhanced)**
@@ -194,7 +194,7 @@ For more details and further functionality, please refer to the [usage documenta
 The pipeline generates:
 
 - **CRISPResso2 Analysis**: Detailed editing analysis with HTML reports
-- **Quality Control**: FastQC reports for input data  
+- **Quality Control**: FastQC reports for input data
 - **Summary Reports**: MultiQC aggregated reports
 - **Enhanced CSV Results**: Three-tier machine-readable analysis files with comprehensive metrics
 - **Pipeline Information**: Execution reports and software versions
@@ -207,17 +207,17 @@ The pipeline automatically generates three types of CSV files for comprehensive 
 Contains key metrics per sample:
 - **Sample identification**: Sample ID, amplicon sequence, and guide sequence information
 - **Sequence details**: Amplicon length, guide length, GC content calculations
-- **Read statistics**: Total read count, mapped read count, mapping percentages  
+- **Read statistics**: Total read count, mapped read count, mapping percentages
 - **Reference mapping**: Number of reads mapped to reference sequence with percentages
 - **Editing efficiency**: Overall modification rates and editing percentages
 - **Indel analysis**: Total indels, insertion/deletion counts, most frequent indel sizes
 - **Modification breakdown**: Reads with insertions only, deletions only, substitutions only, and mixed modifications
 - **Quality metrics**: FastQC statistics (total sequences, GC content, read length)
 
-#### 2. Detailed Results CSV (`*_detailed_results.csv`)  
+#### 2. Detailed Results CSV (`*_detailed_results.csv`)
 Position-specific modification data (up to 250 positions):
 - Per-position insertion frequencies
-- Per-position deletion frequencies  
+- Per-position deletion frequencies
 - Per-position substitution frequencies
 - Total modifications per position
 - Read depth per position
@@ -246,7 +246,7 @@ Successfully validated with:
 
 This pipeline uses optimized containers for reliable execution:
 - **CRISPResso2**: `quay.io/biocontainers/crispresso2:2.3.3--py39hff726c5_0`
-- **MultiQC**: `quay.io/biocontainers/multiqc:1.9--py_1` 
+- **MultiQC**: `quay.io/biocontainers/multiqc:1.9--py_1`
 - **FastQC**: Standard nf-core biocontainer modules
 
 These containers provide:

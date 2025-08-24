@@ -2,12 +2,6 @@
 
 This guide provides instructions for testing the nf-core-crispresso pipeline.
 
-## Quick Test
-
-Test the pipeline immediately with built-in data:
-```bash
-nextflow run sathyasjali/nf-core-crispresso -profile test,docker --outdir results
-```
 
 ## Available Test Datasets
 
@@ -20,17 +14,17 @@ Located in `test_data/publication/`:
 
 ### 1. Basic Functionality Test
 ```bash
-nextflow run sathyasjali/nf-core-crispresso -profile test,docker --outdir test_results
+nextflow run main.nf -profile test,docker --outdir test_results
 ```
 
 ### 2. Base Editor Analysis Test
 ```bash
-nextflow run sathyasjali/nf-core-crispresso -profile test_base_editor,docker --outdir base_editor_results
+nextflow run main.nf -profile test_base_editor,docker --outdir base_editor_results
 ```
 
 ### 3. NHEJ Analysis Test (Paired-end)
 ```bash
-nextflow run sathyasjali/nf-core-crispresso -profile test_nhej,docker --outdir nhej_results
+nextflow run main.nf -profile test_nhej,docker --outdir nhej_results
 ```
 
 ## Custom Data Testing
@@ -45,7 +39,7 @@ cp assets/samplesheet.csv my_samplesheet.csv
 # Multiple analysis types example
 cp assets/samplesheet_examples.csv my_samplesheet.csv
 
-# Simple test data example  
+# Simple test data example
 cp assets/samplesheet_test.csv my_samplesheet.csv
 ```
 
@@ -58,7 +52,7 @@ my_sample,/path/to/sample.fastq.gz,,YOUR_AMPLICON_SEQUENCE,YOUR_GUIDE_SEQUENCE
 
 ### 3. Run Pipeline
 ```bash
-nextflow run sathyasjali/nf-core-crispresso --input my_samplesheet.csv --outdir my_results
+nextflow run main.nf --input my_samplesheet.csv --outdir my_results
 ```
 
 ## Expected Test Results
@@ -81,7 +75,7 @@ nextflow run sathyasjali/nf-core-crispresso --input my_samplesheet.csv --outdir 
 3. **Memory errors**: Use `--max_memory` parameter to limit resource usage
 
 ### Getting Help
-- **Issues**: Report problems at [repository issues](https://github.com/sathyasjali/nf-core-crispresso/issues)
+- **Issues**: Report problems at [repository issues](https://github.com/main.nf/issues)
 - **Documentation**: See `docs/` directory for detailed usage instructions
 
 ## Additional Test Data
@@ -90,7 +84,7 @@ For additional validation datasets, you can download CRISPResso2 official test d
 
 ```bash
 # Download FANC validation dataset
-curl -O https://github.com/pinellolab/CRISPResso2/raw/master/tests/FANC.Cas9.fastq
+wget https://raw.githubusercontent.com/pinellolab/CRISPResso2/master/tests/FANC.Cas9.fastq -O FANC.Cas9.fastq
 gzip FANC.Cas9.fastq
 
 # Create simple samplesheet
@@ -98,7 +92,7 @@ echo "sample,fastq_1,fastq_2,amplicon_seq,guide_seq" > fanc_test.csv
 echo "FANC_test,FANC.Cas9.fastq.gz,,GACGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGGCATGGCCCCATTCGCACGGCTCT,GGAATCCCTTCTGCAGCACC" >> fanc_test.csv
 
 # Run test
-nextflow run sathyasjali/nf-core-crispresso --input fanc_test.csv --outdir fanc_results
+nextflow run main.nf --input fanc_test.csv --outdir fanc_results
 ```
 
 ---
