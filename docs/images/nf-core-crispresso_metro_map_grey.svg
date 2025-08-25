@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- nf-core standard gradients and patterns -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f9fa"/>
+      <stop offset="100%" style="stop-color:#e9ecef"/>
+    </linearGradient>
+    
+    <!-- Station shadows -->
+    <filter id="stationShadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="#00000020"/>
+    </filter>
+    
+    <!-- Line shadows -->
+    <filter id="lineShadow">
+      <feDropShadow dx="1" dy="1" stdDeviation="1" flood-color="#00000015"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="600" fill="url(#bgGradient)"/>
+  
+  <!-- Grid pattern for authentic tube map look -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#dee2e615" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="600" fill="url(#grid)"/>
+  
+  <!-- Main workflow line (grey theme like nf-core/rnaseq) -->
+  <path d="M 100 300 Q 200 300 250 300 Q 350 300 400 300 Q 500 300 600 300 Q 700 300 800 300 Q 900 300 1000 300 Q 1050 300 1100 300" 
+        fill="none" stroke="#6c757d" stroke-width="16" stroke-linecap="round" filter="url(#lineShadow)"/>
+  
+  <!-- QC branch line -->
+  <path d="M 250 300 Q 250 250 300 200 Q 350 150 400 200 Q 450 250 500 300" 
+        fill="none" stroke="#28a745" stroke-width="12" stroke-linecap="round" filter="url(#lineShadow)"/>
+  
+  <!-- Analysis branches -->
+  <path d="M 600 300 Q 600 350 650 400 Q 700 450 750 400 Q 800 350 800 300" 
+        fill="none" stroke="#fd7e14" stroke-width="10" stroke-linecap="round" filter="url(#lineShadow)"/>
+  
+  <!-- Reporting branch -->
+  <path d="M 800 300 Q 850 250 900 200 Q 950 150 1000 200 Q 1050 250 1000 300" 
+        fill="none" stroke="#6f42c1" stroke-width="10" stroke-linecap="round" filter="url(#lineShadow)"/>
+  
+  <!-- STATIONS with nf-core standard styling -->
+  
+  <!-- INPUT Terminal -->
+  <circle cx="100" cy="300" r="30" fill="white" stroke="#495057" stroke-width="4" filter="url(#stationShadow)"/>
+  <circle cx="100" cy="300" r="22" fill="none" stroke="#495057" stroke-width="2"/>
+  <text x="100" y="270" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#212529">INPUT</text>
+  <text x="100" y="340" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="11" fill="#6c757d">samplesheet.csv</text>
+  <text x="100" y="355" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="11" fill="#6c757d">FASTQ files</text>
+  
+  <!-- FastQC -->
+  <circle cx="250" cy="300" r="24" fill="white" stroke="#28a745" stroke-width="4" filter="url(#stationShadow)"/>
+  <circle cx="250" cy="300" r="16" fill="none" stroke="#28a745" stroke-width="2"/>
+  <text x="250" y="265" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="13" font-weight="600" fill="#28a745">FastQC</text>
+  <text x="250" y="340" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="10" fill="#6c757d">read quality control</text>
+  
+  <!-- QC Processing Station -->
+  <circle cx="400" cy="200" r="18" fill="white" stroke="#28a745" stroke-width="3" filter="url(#stationShadow)"/>
+  <text x="400" y="175" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#28a745">QC</text>
+  <text x="400" y="165" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="9" fill="#6c757d">processing</text>
+  
+  <!-- CRISPResso2 Main Hub -->
+  <circle cx="600" cy="300" r="32" fill="white" stroke="#fd7e14" stroke-width="5" filter="url(#stationShadow)"/>
+  <circle cx="600" cy="300" r="24" fill="none" stroke="#fd7e14" stroke-width="2"/>
+  <circle cx="600" cy="300" r="16" fill="none" stroke="#fd7e14" stroke-width="1"/>
+  <text x="600" y="255" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#fd7e14">CRISPResso2</text>
+  <text x="600" y="270" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="12" font-weight="600" fill="#fd7e14">Analysis</text>
+  <text x="600" y="345" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="10" fill="#6c757d">editing quantification</text>
+  <text x="600" y="360" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="10" fill="#6c757d">mutation detection</text>
+  
+  <!-- Detailed Analysis -->
+  <circle cx="750" cy="400" r="20" fill="white" stroke="#fd7e14" stroke-width="3" filter="url(#stationShadow)"/>
+  <text x="750" y="380" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#fd7e14">Detailed</text>
+  <text x="750" y="395" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#fd7e14">Analysis</text>
+  <text x="750" y="430" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="9" fill="#6c757d">amplicon alignment</text>
+  
+  <!-- Results Summary -->
+  <circle cx="800" cy="300" r="26" fill="white" stroke="#6f42c1" stroke-width="4" filter="url(#stationShadow)"/>
+  <circle cx="800" cy="300" r="18" fill="none" stroke="#6f42c1" stroke-width="2"/>
+  <text x="800" y="265" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="12" font-weight="600" fill="#6f42c1">Results</text>
+  <text x="800" y="280" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="12" font-weight="600" fill="#6f42c1">Summary</text>
+  <text x="800" y="340" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="10" fill="#6c757d">CSV generation</text>
+  
+  <!-- Report Processing -->
+  <circle cx="900" cy="200" r="16" fill="white" stroke="#6f42c1" stroke-width="3" filter="url(#stationShadow)"/>
+  <text x="900" y="175" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="10" font-weight="600" fill="#6f42c1">Report</text>
+  <text x="900" y="185" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="10" font-weight="600" fill="#6f42c1">Processing</text>
+  <text x="900" y="225" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="9" fill="#6c757d">aggregation</text>
+  
+  <!-- MultiQC -->
+  <circle cx="1000" cy="300" r="28" fill="white" stroke="#6f42c1" stroke-width="4" filter="url(#stationShadow)"/>
+  <circle cx="1000" cy="300" r="20" fill="none" stroke="#6f42c1" stroke-width="2"/>
+  <text x="1000" y="265" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#6f42c1">MultiQC</text>
+  <text x="1000" y="345" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="10" fill="#6c757d">interactive dashboard</text>
+  
+  <!-- OUTPUT Terminal -->
+  <circle cx="1100" cy="300" r="30" fill="white" stroke="#495057" stroke-width="4" filter="url(#stationShadow)"/>
+  <circle cx="1100" cy="300" r="22" fill="none" stroke="#495057" stroke-width="2"/>
+  <text x="1100" y="270" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#212529">OUTPUT</text>
+  <text x="1100" y="340" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="11" fill="#6c757d">results/</text>
+  
+  <!-- Junction indicators (small circles) -->
+  <circle cx="250" cy="300" r="6" fill="#28a745"/>
+  <circle cx="400" cy="300" r="5" fill="#6c757d"/>
+  <circle cx="600" cy="300" r="8" fill="#fd7e14"/>
+  <circle cx="800" cy="300" r="6" fill="#6f42c1"/>
+  <circle cx="1000" cy="300" r="6" fill="#6f42c1"/>
+  
+  <!-- Input type indicators - nf-core style badges -->
+  <g transform="translate(120, 250)">
+    <rect x="0" y="0" width="80" height="20" fill="white" stroke="#007bff" stroke-width="2" rx="10"/>
+    <text x="40" y="13" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" font-weight="600" fill="#007bff">single-end</text>
+  </g>
+  
+  <g transform="translate(120, 275)">
+    <rect x="0" y="0" width="80" height="20" fill="white" stroke="#28a745" stroke-width="2" rx="10"/>
+    <text x="40" y="13" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" font-weight="600" fill="#28a745">paired-end</text>
+  </g>
+  
+  <!-- Analysis mode badges -->
+  <g transform="translate(520, 350)">
+    <rect x="0" y="0" width="90" height="18" fill="white" stroke="#fd7e14" stroke-width="2" rx="9"/>
+    <text x="45" y="12" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" font-weight="600" fill="#fd7e14">base editor</text>
+  </g>
+  
+  <g transform="translate(620, 350)">
+    <rect x="0" y="0" width="50" height="18" fill="white" stroke="#dc3545" stroke-width="2" rx="9"/>
+    <text x="25" y="12" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" font-weight="600" fill="#dc3545">NHEJ</text>
+  </g>
+  
+  <!-- nf-core standard legend -->
+  <g transform="translate(50, 480)">
+    <rect x="0" y="0" width="1100" height="110" fill="white" stroke="#dee2e6" stroke-width="2" rx="8" filter="url(#stationShadow)"/>
+    
+    <!-- Legend title -->
+    <text x="550" y="25" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#212529">nf-core/crispresso Metro Map</text>
+    
+    <!-- Workflow lines legend -->
+    <text x="30" y="50" font-family="'Inter', sans-serif" font-size="12" font-weight="600" fill="#495057">Workflow Lines:</text>
+    
+    <line x1="30" y1="65" x2="70" y2="65" stroke="#6c757d" stroke-width="8" stroke-linecap="round"/>
+    <text x="80" y="69" font-family="'Inter', sans-serif" font-size="11" fill="#495057">Main Workflow</text>
+    
+    <line x1="200" y1="65" x2="240" y2="65" stroke="#28a745" stroke-width="6" stroke-linecap="round"/>
+    <text x="250" y="69" font-family="'Inter', sans-serif" font-size="11" fill="#495057">Quality Control</text>
+    
+    <line x1="370" y1="65" x2="410" y2="65" stroke="#fd7e14" stroke-width="6" stroke-linecap="round"/>
+    <text x="420" y="69" font-family="'Inter', sans-serif" font-size="11" fill="#495057">Analysis</text>
+    
+    <line x1="500" y1="65" x2="540" y2="65" stroke="#6f42c1" stroke-width="6" stroke-linecap="round"/>
+    <text x="550" y="69" font-family="'Inter', sans-serif" font-size="11" fill="#495057">Reporting</text>
+    
+    <!-- Station types legend -->
+    <text x="700" y="50" font-family="'Inter', sans-serif" font-size="12" font-weight="600" fill="#495057">Stations:</text>
+    
+    <circle cx="720" cy="62" r="12" fill="white" stroke="#495057" stroke-width="3"/>
+    <text x="740" y="66" font-family="'Inter', sans-serif" font-size="11" fill="#495057">Input/Output</text>
+    
+    <circle cx="840" cy="62" r="10" fill="white" stroke="#28a745" stroke-width="3"/>
+    <text x="860" y="66" font-family="'Inter', sans-serif" font-size="11" fill="#495057">Quality Control</text>
+    
+    <circle cx="980" cy="62" r="10" fill="white" stroke="#fd7e14" stroke-width="3"/>
+    <text x="1000" y="66" font-family="'Inter', sans-serif" font-size="11" fill="#495057">Analysis</text>
+    
+    <!-- Pipeline flow -->
+    <text x="30" y="95" font-family="'Inter', sans-serif" font-size="13" font-weight="600" fill="#495057">Pipeline Flow:</text>
+    <text x="150" y="95" font-family="'Inter', sans-serif" font-size="12" fill="#6c757d">INPUT → FastQC → CRISPResso2 → Results Summary → MultiQC → OUTPUT</text>
+  </g>
+  
+  <!-- nf-core branding -->
+  <text x="1150" y="30" text-anchor="end" font-family="'Inter', sans-serif" font-size="12" font-weight="600" fill="#6c757d">nf-core</text>
+  <text x="1150" y="45" text-anchor="end" font-family="'Inter', sans-serif" font-size="10" fill="#adb5bd">pipeline</text>
+</svg>
