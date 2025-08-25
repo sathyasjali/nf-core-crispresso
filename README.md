@@ -76,8 +76,17 @@ The pipeline performs the following steps:
 ## Quick Test
 
 Test the pipeline with built-in data:
+
+**From GitHub (if repository is public):**
 ```bash
 nextflow run sathyasjali/nf-core-crispresso -profile test,docker --outdir results
+```
+
+**Clone and run locally:**
+```bash
+git clone https://github.com/sathyasjali/nf-core-crispresso.git
+cd nf-core-crispresso
+nextflow run . -profile test,docker --outdir results
 ```
 
 ## Quick Start
@@ -152,6 +161,26 @@ nextflow run . \
 ```
 
 For more details and further functionality, please refer to the [usage documentation](https://nf-co.re/docs/usage/getting_started) and the [parameter documentation](docs/usage.md).
+
+## Available Samplesheet Templates
+
+The pipeline includes three ready-to-use samplesheet templates:
+
+1. **`assets/samplesheet.csv`** - Basic template for your own data
+2. **`assets/samplesheet_test.csv`** - Official CRISPResso base editor test data (used by `-profile test`)
+3. **`assets/samplesheet_examples.csv`** - All three official CRISPResso example datasets:
+   - Base editor experiment (EMX1 locus)
+   - NHEJ experiment (paired-end data)
+   - Allele-specific editing experiment
+
+To use the examples with real data:
+```bash
+# Test with base editor data
+nextflow run sathyasjali/nf-core-crispresso --input assets/samplesheet_test.csv -profile docker --outdir results
+
+# Test with all examples  
+nextflow run sathyasjali/nf-core-crispresso --input assets/samplesheet_examples.csv -profile docker --outdir results
+```
 
 ## Pipeline Parameters
 

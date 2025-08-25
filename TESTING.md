@@ -1,13 +1,10 @@
 # Testing nf-core-crispresso
 
-This guide provides instructions for testing the nf-core-crispresso pipeline.
+Comprehensive testing guide for the nf-core-crispresso pipeline.
 
-## Quick Test
+> **Quick Test**: See the README.md for immediate testing instructions.
 
-Test the pipeline immediately with built-in data:
-```bash
-nextflow run sathyasjali/nf-core-crispresso -profile test,docker --outdir results
-```
+## Developer Testing
 
 ## Available Test Datasets
 
@@ -20,17 +17,36 @@ Located in `test_data/publication/`:
 
 ### 1. Basic Functionality Test
 ```bash
-nextflow run sathyasjali/nf-core-crispresso -profile test,docker --outdir test_results
+nextflow run . -profile test,docker --outdir test_results
 ```
 
 ### 2. Base Editor Analysis Test
 ```bash
-nextflow run sathyasjali/nf-core-crispresso -profile test_base_editor,docker --outdir base_editor_results
+nextflow run . -profile test_base_editor,docker --outdir base_editor_results
+```
+
+### 3. NHEJ Analysis Test
+```bash
+nextflow run . -profile test_nhej,docker --outdir nhej_results
+```
+
+### 4. Custom Data Test
+### 4. Custom Data Test
+```bash
+nextflow run . --input my_samplesheet.csv --outdir my_results -profile docker
 ```
 
 ### 3. NHEJ Analysis Test (Paired-end)
+**Remote (if repository is public):**
 ```bash
 nextflow run sathyasjali/nf-core-crispresso -profile test_nhej,docker --outdir nhej_results
+```
+
+**Clone and Run Locally:**
+```bash
+git clone https://github.com/sathyasjali/nf-core-crispresso.git
+cd nf-core-crispresso
+nextflow run . -profile test_nhej,docker --outdir nhej_results
 ```
 
 ## Custom Data Testing
@@ -57,8 +73,16 @@ my_sample,/path/to/sample.fastq.gz,,YOUR_AMPLICON_SEQUENCE,YOUR_GUIDE_SEQUENCE
 ```
 
 ### 3. Run Pipeline
+**Remote (if repository is public):**
 ```bash
-nextflow run sathyasjali/nf-core-crispresso --input my_samplesheet.csv --outdir my_results
+nextflow run sathyasjali/nf-core-crispresso --input my_samplesheet.csv --outdir my_results -profile docker
+```
+
+**Clone and Run Locally:**
+```bash
+git clone https://github.com/sathyasjali/nf-core-crispresso.git
+cd nf-core-crispresso
+nextflow run . --input my_samplesheet.csv --outdir my_results -profile docker
 ```
 
 ## Expected Test Results
