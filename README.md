@@ -48,7 +48,7 @@ Each row represents a FASTQ file (single-end) or a pair of FASTQ files (paired-e
 Now, you can run the pipeline using:
 
 ```bash
-nextflow run nf-core/crispresso \
+nextflow run sathyasjali/nf-core-crispresso \
   --input samplesheet.csv \
   --outdir <OUTDIR> \
   -profile <docker/singularity/.../institute>
