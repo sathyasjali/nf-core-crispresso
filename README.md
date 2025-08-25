@@ -21,6 +21,12 @@
 
 ## Pipeline summary
 
+<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps of the pipeline -->
+
+<p align="center">
+    <img src="docs/images/nf-core-crispresso_metro_map.svg" alt="nf-core/crispresso metro map" width="100%">
+</p>
+
 The pipeline is built using [Nextflow](https://www.nextflow.io) and processes samples through the following steps:
 
 1. **Read Quality Control** ([FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
