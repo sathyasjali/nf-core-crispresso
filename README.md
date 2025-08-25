@@ -50,90 +50,21 @@ Now, you can run the pipeline using:
 ```bash
 nextflow run sathyasjali/nf-core-crispresso \
   --input samplesheet.csv \
-  --outdir <OUTDIR> \
-  -profile <docker/singularity/.../institute>
+  --outdir results \
+  -profile docker
 ```
 
 > **Warning**
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _except for parameters_; see [docs](https://nf-co.re/usage/configuration#custom-configuration-files).
 
-For more details and further functionality, please refer to the [usage documentation](https://nf-co.re/crispresso/usage) and the [parameter documentation](https://nf-co.re/crispresso/parameters).
+For more details and further functionality, please refer to the [usage documentation](docs/usage.md) and the [parameter documentation](docs/parameters.md).
 
-> **Note**
-> If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.
-
-1. Install [`Nextflow`](https://www.nextflow.io/docs/latest/getstarted.html#installation) (`>=21.10.3`)
-
-2. Install any of [`Docker`](https://docs.docker.com/engine/installation/), [`Singularity`](https://www.sylabs.io/guides/3.0/user-guide/) (you can follow [this tutorial](https://singularity-tutorial.github.io/01-installation/)), [`Podman`](https://podman.io/), [`Shifter`](https://nersc.gitlab.io/development/shifter/how-to-use/) or [`Charliecloud`](https://hpc.github.io/charliecloud/) for full pipeline reproducibility
-
-   > **Docker Recommendation**: This pipeline has been optimized for Docker using biocontainers for reliable CRISPResso2 execution. Both Docker and Conda profiles are fully supported.
-
-3. Create a samplesheet with your input data that looks as follows:
-
-**Option 1: Global sequences (traditional approach)**
-
-`samplesheet.csv`:
-
-```csv
-sample,fastq_1,fastq_2
-sample1,path/to/sample1_R1.fastq.gz,path/to/sample1_R2.fastq.gz
-sample2,path/to/sample2_R1.fastq.gz,path/to/sample2_R2.fastq.gz
-```
-
-**Option 2: Per-sample sequences (new enhanced approach)**
-
-`samplesheet.csv`:
-
-```csv
-sample,fastq_1,fastq_2,amplicon_seq,guide_seq
-sample1,path/to/sample1_R1.fastq.gz,path/to/sample1_R2.fastq.gz,ATCGATCGATCG...,GATTACGTCCGA
-sample2,path/to/sample2_R1.fastq.gz,path/to/sample2_R2.fastq.gz,GCTAGCTAGCTA...,TTCGAGCTACGT
-```
-
-Each row represents a fastq file (single-end) or a pair of fastq files (paired end). Rows with the same sample identifier are considered technical replicates and merged automatically.
-
-> **Enhanced Feature**: The pipeline now supports per-sample amplicon and guide sequences directly in the samplesheet, allowing analysis of multiple different targets in a single run without requiring separate pipeline executions.
-
-4. Run the pipeline:
-
-> **Warning**
-> Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration except for parameters; see [docs](https://nf-co.re/usage/configuration#custom-configuration-files).
-
-**Option A: Global sequences for all samples**
-```bash
-nextflow run . \
-  --input samplesheet.csv \
-  --outdir results \
-  --amplicon_seq "YOUR_AMPLICON_SEQUENCE" \
-  --guide_seq "YOUR_GUIDE_RNA_SEQUENCE" \
-  -profile docker
-```
-
-**Option B: Per-sample sequences (no global sequences needed)**
-```bash
-nextflow run . \
-  --input samplesheet_with_sequences.csv \
-  --outdir results \
-  -profile docker
-```
-
-**Option C: Memory-optimized execution for systems with limited RAM**
-```bash
-nextflow run . \
-  --input samplesheet.csv \
-  --outdir results \
-  --amplicon_seq "YOUR_AMPLICON_SEQUENCE" \
-  --guide_seq "YOUR_GUIDE_RNA_SEQUENCE" \
-  -profile docker \
-  -c conf/test_light.config
-```
-
-For more details and further functionality, please refer to the [usage documentation](https://nf-co.re/crispresso/usage) and the [parameter documentation](https://nf-co.re/crispresso/parameters).
+For more details and further functionality, please refer to the [usage documentation](docs/usage.md) and the [parameter documentation](docs/parameters.md).
 
 ## Pipeline output
 
-To see the results of an example test run with a full size dataset refer to the [results](https://nf-co.re/crispresso/results) tab on the nf-core website pipeline page.
-For more details about the output files and reports, please refer to the [output documentation](https://nf-co.re/crispresso/output).
+To see the results of an example test run with a full size dataset refer to the results section in the documentation.
+For more details about the output files and reports, please refer to the [output documentation](docs/output.md).
 
 The pipeline generates comprehensive CRISPR editing analysis results including:
 
