@@ -57,7 +57,7 @@ Each row represents a FASTQ file (single-end) or a pair of FASTQ files (paired-e
 Now, you can run the pipeline using:
 
 ```bash
-nextflow run sathyasjali/nf-core-crispresso \
+nextflow run . \
   --input samplesheet.csv \
   --outdir results \
   -profile docker
@@ -69,7 +69,7 @@ nextflow run sathyasjali/nf-core-crispresso \
 Now, you can run the pipeline using:
 
 ```bash
-nextflow run sathyasjali/nf-core-crispresso \
+nextflow run . \
    --input samplesheet.csv \
    --outdir <OUTDIR> \
    --amplicon_seq <AMPLICON_SEQUENCE> \

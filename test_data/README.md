@@ -13,13 +13,13 @@ These datasets are automatically used when running test profiles:
 
 ```bash
 # Basic test
-nextflow run sathyasjali/nf-core-crispresso -profile test,docker --outdir results
+nextflow run . -profile test,docker --outdir results
 
 # Base editor test
-nextflow run sathyasjali/nf-core-crispresso -profile test_base_editor,docker --outdir results
+nextflow run . -profile test_base_editor,docker --outdir results
 
 # NHEJ test
-nextflow run sathyasjali/nf-core-crispresso -profile test_nhej,docker --outdir results
+nextflow run . -profile test_nhej,docker --outdir results
 ```
 
 ## Data Attribution
