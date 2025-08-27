@@ -143,11 +143,7 @@ For further information or help, don't hesitate to get in touch on the [Slack #c
 
 ## Citations
 
-If you use this pipeline for your analysis, please cite the repository:
-
-> **sathyasjali/nf-core-crispresso: CRISPR editing analysis pipeline**
->
-> Sathya Jali. GitHub repository: https://github.com/sathyasjali/nf-core-crispresso
+If you use this pipeline for your analysis, please cite the repository: GitHub repository: https://github.com/sathyasjali/nf-core-crispresso
 
 **Please also cite CRISPResso2:**
 

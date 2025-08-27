@@ -37,15 +37,14 @@ nextflow run . --input my_samplesheet.csv --outdir my_results -profile docker
 
 ## Running from Remote Repository
 
-> **Note**: Remote execution currently requires the repository to be public and properly configured. 
-> For development and testing, use local execution instead.
+✅ **Remote execution is now fully supported!** The repository is public and all test profiles work.
 
-**Remote (when repository is public and published):**
+**Remote execution (recommended for users):**
 ```bash
 nextflow run sathyasjali/nf-core-crispresso -profile test_nhej,docker --outdir nhej_results
 ```
 
-**Recommended: Clone and Run Locally:**
+**Local development (recommended for developers):**
 ```bash
 git clone https://github.com/sathyasjali/nf-core-crispresso.git
 cd nf-core-crispresso
