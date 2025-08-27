@@ -1,87 +1,34 @@
-<h1>
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/images/nf-core-crispresso_logo_dark.png">
-    <img alt="nf-core/crispresso" src="docs/images/nf-core-crispresso_logo_light.png">
-  </picture>
-</h1>
+# [![nf-core/crispresso](docs/images/nf-core-crispresso_logo_light.png#gh-light-mode-only)](https://github.com/sathyasjali/nf-core-crispresso)
+[![nf-core/crispresso](docs/images/nf-core-crispresso_logo_dark.png#gh-dark-mode-only)](https://github.com/sathyasjali/nf-core-crispresso)
 
-# nf-core/crispresso: CRISPR Analysis Pipeline
-
-[![GitHub Actions CI Status](https://github.com/nf-core/crispresso/actions/workflows/nf-test.yml/badge.svg)](https://github.com/nf-core/crispresso/actions/workflows/nf-test.yml)
-[![GitHub Actions Linting Status](https://github.com/nf-core/crispresso/actions/workflows/linting.yml/badge.svg)](https://github.com/nf-core/crispresso/actions/workflows/linting.yml)
-[![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A520.11.0-23aa62.svg)](https://www.nextflow.io/)
+[![GitHub Actions CI Status](https://github.com/sathyasjali/nf-core-crispresso/actions/workflows/ci.yml/badge.svg)](https://github.com/sathyasjali/nf-core-crispresso/actions/workflows/ci.yml)
+[![GitHub Actions Linting Status](https://github.com/sathyasjali/nf-core-crispresso/actions/workflows/linting.yml/badge.svg)](https://github.com/sathyasjali/nf-core-crispresso/actions/workflows/linting.yml)
+[![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A524.10.5-23aa62.svg)](https://www.nextflow.io/)
 [![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://conda.io/)
 [![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
 [![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)
+
+[![Get help on Slack](http://img.shields.io/badge/slack-nf--core%20%23crispresso-4A154B?labelColor=000000&logo=slack)](https://nfcore.slack.com/channels/crispresso)
+[![Follow on Twitter](http://img.shields.io/badge/twitter-%40nf__core-1DA1F2?labelColor=000000&logo=twitter)](https://twitter.com/nf_core)
+[![Watch on YouTube](http://img.shields.io/badge/youtube-nf--core-FF0000?labelColor=000000&logo=youtube)](https://www.youtube.com/c/nf-core)
 
 ## Introduction
 
 **nf-core/crispresso** is a bioinformatics pipeline that can be used to analyse CRISPR editing data obtained from amplicon sequencing experiments. It takes a samplesheet and FASTQ files as input, performs quality control (QC), alignment to reference amplicons, quantifies editing efficiency and produces comprehensive editing reports with detailed mutation analysis.
 
-## Pipeline summary
+![nf-core/crispresso metro map](docs/images/nf-core-crispresso_logo_light.png)
 
-The pipeline is built using [Nextflow](https://www.nextflow.io) and processes samples through the following steps:
-
-1. **Read Quality Control** ([FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
-2. **CRISPR Editing Analysis** ([CRISPResso2](https://crispresso.pinellolab.partners.org/))
-3. **Results Summary Generation** (Custom Python Script)
+1. Read QC ([FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
+2. CRISPR editing analysis ([CRISPResso2](https://crispresso.pinellolab.partners.org/))
+3. Results summary generation (Custom Python Script)
    - Three-tier CSV output system with comprehensive metrics
-   - Position-specific modification analysis (up to 250 positions)
+   - Position-specific modification analysis (up to 250 positions)  
    - Reference sequence information with GC content calculations
    - Automated summary statistics and quality control metrics
-
-4. **Aggregate Reporting** ([MultiQC](http://multiqc.info/))
-   - Combines FastQC and CRISPResso2 results
-   - Creates unified HTML dashboard
-   - Quality control summary across all samples
-
-### Workflow Overview:
-
-```
-┌─────────────────┐    ┌─────────┐    ┌─────────────────┐
-│   FASTQ Files   │────▶│ FastQC  │────▶│  Quality Reports │
-│  (SE/PE reads)  │    └─────────┘    └─────────────────┘
-└─────────────────┘           │                    │
-         │                    ▼                    ▼
-┌─────────────────┐    ┌─────────────┐    ┌─────────────────┐
-│ Per-Sample or   │────▶│ CRISPResso2 │────▶│ Editing Analysis│
-│ Global Amplicon │    └─────────────┘    └─────────────────┘
-│ + Guide Seqs    │           │                    │
-└─────────────────┘           ▼                    ▼
-                     ┌─────────────┐    ┌─────────────────┐
-                     │Results Summary│────▶│   CSV Reports   │
-                     │  (3-Tier)   │    │ (Summary,Detail, │
-                     └─────────────┘    │  Reference)     │
-                              │         └─────────────────┘
-                              ▼                    │
-                     ┌─────────────┐              ▼
-                     │   MultiQC   │────▶┌─────────────────┐
-                     └─────────────┘     │ Final Dashboard │
-                                         └─────────────────┘
-```
-
-## Quick Test
-
-Test the pipeline with built-in data:
-
-**From GitHub (if repository is public):**
-
-```bash
-nextflow run sathyasjali/nf-core-crispresso -profile test,docker --outdir results
-```
-
-**Clone and run locally:**
-
-```bash
-git clone https://github.com/sathyasjali/nf-core-crispresso.git
-cd nf-core-crispresso
-nextflow run . -profile test,docker --outdir results
-```
-
-## Quick Start
+4. Aggregate reporting ([MultiQC](http://multiqc.info/))
 
 > **Note**
-> If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.
+> The pipeline supports both single-end and paired-end sequencing data. Sequences can be specified globally for all samples or individually per sample in the samplesheet for multi-target experiments.
 
 ## Usage
 
@@ -94,9 +41,14 @@ First, prepare a samplesheet with your input data that looks as follows:
 
 ```csv
 sample,fastq_1,fastq_2,amplicon_seq,guide_seq
-SAMPLE_1,sample1.fastq.gz,,GACGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGGCATGGCCCCATTCGCACGGCTCT,GGAATCCCTTCTGCAGCACC
-SAMPLE_2,sample2_R1.fastq.gz,sample2_R2.fastq.gz,GACGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGGCATGGCCCCATTCGCACGGCTCT,GGAATCCCTTCTGCAGCACC
+SAMPLE_1,sample1.fastq.gz,,AMPLICON_SEQUENCE,GUIDE_SEQUENCE
+SAMPLE_2,sample2_R1.fastq.gz,sample2_R2.fastq.gz,AMPLICON_SEQUENCE,GUIDE_SEQUENCE
 ```
+
+Each row represents a fastq file (single-end) or a pair of fastq files (paired-end). The `amplicon_seq` and `guide_seq` columns can be included per-sample or specified globally via command line parameters.
+
+> **Warning**
+> Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _except for parameters_; see [docs](https://nf-co.re/usage/configuration#custom-configuration-files).
 
 Each row represents a FASTQ file (single-end) or a pair of FASTQ files (paired-end). You must provide the amplicon sequence and guide RNA sequence for each sample. If multiple samples share the same amplicon and guide sequences, they can use the same values.
 
@@ -112,103 +64,25 @@ nextflow run sathyasjali/nf-core-crispresso \
 > **Warning**
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _except for parameters_; see [docs](https://nf-co.re/usage/configuration#custom-configuration-files).
 
-<<<<<<< HEAD
-For more details and further functionality, please refer to the [usage documentation](docs/usage.md) and the [parameter documentation](docs/parameters.md).
-=======
-**Option A: Global sequences for all samples**
+Now, you can run the pipeline using:
 
 ```bash
-nextflow run . \
-  --input samplesheet.csv \
-  --outdir results \
-  --amplicon_seq "YOUR_AMPLICON_SEQUENCE" \
-  --guide_seq "YOUR_GUIDE_RNA_SEQUENCE" \
-  -profile docker
+nextflow run sathyasjali/nf-core-crispresso \
+   --input samplesheet.csv \
+   --outdir <OUTDIR> \
+   --amplicon_seq <AMPLICON_SEQUENCE> \
+   --guide_seq <GUIDE_SEQUENCE> \
+   -profile <docker/singularity/.../institute>
 ```
 
-**Option B: Per-sample sequences (no global sequences needed)**
+> **Warning**
+> Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _except for parameters_; see [docs](https://nf-co.re/usage/configuration#custom-configuration-files).
 
-```bash
-nextflow run . \
-  --input samplesheet_with_sequences.csv \
-  --outdir results \
-  -profile docker
-```
+For more details and further functionality, please refer to the [usage documentation](docs/usage.md) and the [parameter documentation](docs/usage.md).
 
-**Option C: Memory-optimized execution for systems with limited RAM**
+## Pipeline output
 
-```bash
-nextflow run . \
-  --input samplesheet.csv \
-  --outdir results \
-  --amplicon_seq "YOUR_AMPLICON_SEQUENCE" \
-  --guide_seq "YOUR_GUIDE_RNA_SEQUENCE" \
-  -profile docker \
-  -c conf/test_light.config
-```
-
-For more details and further functionality, please refer to the [usage documentation](https://nf-co.re/docs/usage/getting_started) and the [parameter documentation](docs/usage.md).
-
-## Available Samplesheet Templates
-
-The pipeline includes three ready-to-use samplesheet templates:
-
-1. **`assets/samplesheet.csv`** - Basic template for your own data
-2. **`assets/samplesheet_test.csv`** - Official CRISPResso base editor test data (used by `-profile test`)
-3. **`assets/samplesheet_examples.csv`** - All three official CRISPResso example datasets:
-   - Base editor experiment (EMX1 locus)
-   - NHEJ experiment (paired-end data)
-   - Allele-specific editing experiment
-
-To use the examples with real data:
-
-```bash
-# Test with base editor data
-nextflow run sathyasjali/nf-core-crispresso --input assets/samplesheet_test.csv -profile docker --outdir results
-
-# Test with all examples
-nextflow run sathyasjali/nf-core-crispresso --input assets/samplesheet_examples.csv -profile docker --outdir results
-```
-
-## Pipeline Parameters
-
-### Required Parameters
-
-- `--input`: Path to comma-separated file containing information about samples
-
-### Sequence Specification (Choose One Approach)
-
-**Option 1: Global Sequences (Traditional)**
-
-- `--amplicon_seq`: Reference amplicon sequence for CRISPResso analysis
-- `--guide_seq`: Guide RNA sequence used for targeting
-
-**Option 2: Per-Sample Sequences (Enhanced)**
-
-- Include `amplicon_seq` and `guide_seq` columns in your samplesheet
-- `amplicon_seq` column is required, `guide_seq` column is optional
-- Per-sample sequences take precedence over global parameters
-- Allows analysis of multiple different targets in a single pipeline run
-
-### Core CRISPResso2 Options
-
-- `--quantification_window_size`: Size of quantification window (default: -1, auto)
-- `--exclude_bp_from_left`: Exclude bp from left of amplicon (default: 15)
-- `--exclude_bp_from_right`: Exclude bp from right of amplicon (default: 15)
-- `--min_reads_to_use_readsX_consensus`: Min reads for consensus (default: 1)
-
-### Output Options
-
-- `--outdir`: Output directory for results (default: './results')
-- `--skip_multiqc`: Skip MultiQC report generation
-
-### Memory and Performance Options
-
-- Use `conf/test_light.config` for memory-constrained systems (20GB total memory)
-- Optimized process memory allocation for different system configurations
-- Docker platform compatibility for ARM64 and AMD64 architectures
-
-## Output
+To see the results of an example test run with a full size dataset refer to the results tab on the pipeline page. For more details about the output files and reports, please refer to the [output documentation](docs/output.md).
 
 The pipeline generates:
 
@@ -243,57 +117,11 @@ Position-specific modification data (up to 250 positions):
 - Per-position deletion frequencies
 - Per-position substitution frequencies
 - Total modifications per position
-- Read depth per position
-- Compatible with R, Python, Excel for plotting and statistical analysis
-
-#### 3. Reference Information CSV (`*_reference_info.csv`)
-
-Reference sequence metadata:
-
-- Sample ID and amplicon sequence
-- Guide sequence information
-- Sequence lengths and GC content calculations
-- Prominently displays reference sequences for easy identification
-
-## Testing Status ✅
-
-Successfully validated with:
-
-- **Docker container compatibility** - Uses biocontainers for optimal Nextflow integration
-- **Per-sample sequence processing** - Validated with multiple different amplicon/guide combinations
-- **Memory optimization** - Tested on systems with 20GB total memory allocation
-- **Three-tier CSV output system** - All CSV formats validated with real data
-- **Position-specific analysis** - Detailed modification tracking up to 250 positions
-- **Multi-platform support** - Compatible with linux/amd64 and linux/arm64/v8
-- **nf-core schema validation** - Complete parameter verification with DNA sequence patterns
-- **Full pipeline execution** - End-to-end analysis validation with comprehensive outputs
-
-### Container Information
-
-This pipeline uses optimized containers for reliable execution:
-
-- **CRISPResso2**: `quay.io/biocontainers/crispresso2:2.3.3--py39hff726c5_0`
-- **MultiQC**: `quay.io/biocontainers/multiqc:1.9--py_1`
-- **FastQC**: Standard nf-core biocontainer modules
-
-These containers provide:
-
-- Full functionality with Nextflow compatibility
-- Reliable container entry points for workflow execution
-- Cross-platform compatibility for different architectures
-- Memory-optimized execution profiles
-  > > > > > > > origin/master
-
-## Pipeline output
-
-To see the results of an example test run with a full size dataset refer to the results section in the documentation.
-For more details about the output files and reports, please refer to the [output documentation](docs/output.md).
-
 The pipeline generates comprehensive CRISPR editing analysis results including:
 
 - **Quality Control Reports**: FastQC analysis of input FASTQ files
-- **CRISPR Editing Analysis**: CRISPResso2 detailed editing efficiency reports with mutation quantification
-- **Summary CSV Files**: Machine-readable results with editing statistics and position-specific modifications
+- **CRISPR Editing Analysis**: CRISPResso2 detailed editing efficiency reports with mutation quantification  
+- **Enhanced CSV Results**: Three-tier machine-readable analysis files with comprehensive metrics
 - **Aggregate Reports**: MultiQC dashboard combining all quality control and analysis results
 
 ## Credits
