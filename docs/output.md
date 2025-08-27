@@ -61,8 +61,9 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 The results summary module creates machine-readable CSV files for downstream analysis:
 
 **Summary CSV** contains:
+
 - **Sample identification**: Sample ID and amplicon information
-- **Read statistics**: Total read count, mapped read count, mapping percentages  
+- **Read statistics**: Total read count, mapped read count, mapping percentages
 - **Reference mapping**: Number of reads mapped to reference sequence
 - **Indel analysis**: Total indels, insertion/deletion counts, most frequent indel sizes
 - **Editing efficiency**: Overall modification rates and editing percentages
@@ -70,6 +71,7 @@ The results summary module creates machine-readable CSV files for downstream ana
 - **Amplicon details**: Guide RNA and amplicon sequence information
 
 **Detailed CSV** contains:
+
 - Position-by-position modification frequencies (insertions, deletions, substitutions)
 - Read depth information per amplicon position
 - Statistical data ready for downstream analysis and custom plotting

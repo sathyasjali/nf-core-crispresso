@@ -82,10 +82,10 @@ workflow PIPELINE_INITIALISATION {
                     amplicon_seq: amplicon_seq ?: "",
                     guide_seq: guide_seq ?: ""
                 ]
-                
+
                 // Create reads list
                 def reads = !fastq_2 ? [fastq_1] : [fastq_1, fastq_2]
-                
+
                 return [new_meta, reads]
         }
         .set { ch_samplesheet }

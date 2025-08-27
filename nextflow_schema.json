@@ -95,7 +95,7 @@
                     "help_text": "This parameter specifies the expected amplicon sequence. CRISPResso2 will align sequencing reads to this reference sequence to identify insertions, deletions, and mutations."
                 },
                 "guide_seq": {
-                    "type": "string", 
+                    "type": "string",
                     "description": "Guide RNA sequence (without PAM)",
                     "fa_icon": "fas fa-scissors",
                     "help_text": "This parameter specifies the guide RNA sequence used in the CRISPR experiment. Do not include the PAM sequence."
@@ -103,7 +103,7 @@
                 "quantification_window_center": {
                     "type": "integer",
                     "description": "Center of quantification window relative to 3' end of guide sequence",
-                    "fa_icon": "fas fa-window-maximize", 
+                    "fa_icon": "fas fa-window-maximize",
                     "default": -3,
                     "help_text": "Specify the center of the quantification window relative to the 3' end of the guide sequence. The default is -3."
                 },
@@ -122,7 +122,7 @@
                     "help_text": "Number of base pairs to exclude from the left side of the amplicon sequence when quantifying indels."
                 },
                 "exclude_bp_from_right": {
-                    "type": "integer", 
+                    "type": "integer",
                     "description": "Exclude bp from the right side (3') of the amplicon sequence for the quantification of the indels",
                     "fa_icon": "fas fa-step-forward",
                     "default": 15,

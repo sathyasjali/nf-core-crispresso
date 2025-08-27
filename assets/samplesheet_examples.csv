@@ -1,7 +1,7 @@
 # CRISPResso Pipeline - Example Samplesheets
 # This file contains real example datasets from the official CRISPResso documentation
 # Copy and modify the relevant sections for your own data analysis
-# 
+#
 # Quick Test: nextflow run sathyasjali/nf-core-crispresso -profile test,docker --outdir results
 # Documentation: https://docs.crispresso.com/suite/core/examples.html
 

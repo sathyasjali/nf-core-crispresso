@@ -23,24 +23,24 @@ workflow {
                 amplicon_seq: row.amplicon_seq ?: params.amplicon_seq ?: "",
                 guide_seq: row.guide_seq ?: params.guide_seq ?: ""
             ]
-            def reads = !row.fastq_2 || row.fastq_2.isEmpty() ? 
-                [file(row.fastq_1, checkIfExists: true)] : 
+            def reads = !row.fastq_2 || row.fastq_2.isEmpty() ?
+                [file(row.fastq_1, checkIfExists: true)] :
                 [file(row.fastq_1, checkIfExists: true), file(row.fastq_2, checkIfExists: true)]
-            
+
             return [meta, reads]
         }
         .set { ch_input }
 
     // Run FastQC
     FASTQC(ch_input)
-    
+
     // Run CRISPResso2
     CRISPRESSO2(
         ch_input,
         params.amplicon_seq ?: "",
         params.guide_seq ?: ""
     )
-    
+
     // Create results summary
     RESULTS_SUMMARY(
         CRISPRESSO2.out.results,
@@ -48,7 +48,7 @@ workflow {
         params.amplicon_seq ?: "",
         params.guide_seq ?: ""
     )
-    
+
     // Display outputs
     CRISPRESSO2.out.html.view { "CRISPResso HTML: ${it}" }
     RESULTS_SUMMARY.out.summary_csv.view { "Results CSV: ${it}" }

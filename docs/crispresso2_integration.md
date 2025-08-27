@@ -14,6 +14,7 @@ When running the pipeline, you must provide:
 - `--guide_seq`: The guide RNA sequence without the PAM sequence
 
 Example:
+
 ```bash
 nextflow run nf-core/crispresso \
     -profile docker \
@@ -26,7 +27,7 @@ nextflow run nf-core/crispresso \
 ## Optional Parameters
 
 - `--quantification_window_center`: Center of quantification window relative to 3' end of guide sequence (default: -3)
-- `--quantification_window_size`: Size of quantification window (default: 1)  
+- `--quantification_window_size`: Size of quantification window (default: 1)
 - `--exclude_bp_from_left`: Exclude bp from left side of amplicon for quantification (default: 15)
 - `--exclude_bp_from_right`: Exclude bp from right side of amplicon for quantification (default: 15)
 
@@ -42,11 +43,13 @@ CRISPResso2 generates several output files:
 ## Input Data Format
 
 The samplesheet should contain:
+
 - `sample`: Sample identifier
 - `fastq_1`: Path to R1 FASTQ file
 - `fastq_2`: Path to R2 FASTQ file (optional for single-end data)
 
 Example samplesheet.csv:
+
 ```
 sample,fastq_1,fastq_2
 CONTROL,control_R1.fastq.gz,control_R2.fastq.gz
@@ -57,6 +60,7 @@ SINGLE_END,single_end.fastq.gz,
 ## Docker/Singularity
 
 The CRISPResso2 module uses:
+
 - Docker: `pinellolab/crispresso2:2.3.3`
 - Conda: `bioconda::crispresso2=2.3.3`
 
@@ -73,6 +77,7 @@ nextflow run nf-core/crispresso \
 ```
 
 In `custom.config`:
+
 ```nextflow
 process {
     withName: CRISPRESSO2 {

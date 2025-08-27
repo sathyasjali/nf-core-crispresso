@@ -14,7 +14,6 @@
 [![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
 [![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)
 
-
 ## Introduction
 
 **nf-core/crispresso** is a bioinformatics pipeline that can be used to analyse CRISPR editing data obtained from amplicon sequencing experiments. It takes a samplesheet and FASTQ files as input, performs quality control (QC), alignment to reference amplicons, quantifies editing efficiency and produces comprehensive editing reports with detailed mutation analysis.
@@ -26,7 +25,7 @@
 The pipeline is built using [Nextflow](https://www.nextflow.io) and processes samples through the following steps:
 
 1. **Read Quality Control** ([FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
-2. **CRISPR Editing Analysis** ([CRISPResso2](https://crispresso.pinellolab.partners.org/)) 
+2. **CRISPR Editing Analysis** ([CRISPResso2](https://crispresso.pinellolab.partners.org/))
 3. **Results Summary Generation** (Custom Python Script)
    - Three-tier CSV output system with comprehensive metrics
    - Position-specific modification analysis (up to 250 positions)
@@ -39,6 +38,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io) and processes sa
    - Quality control summary across all samples
 
 ### Workflow Overview:
+
 ```
 ┌─────────────────┐    ┌─────────┐    ┌─────────────────┐
 │   FASTQ Files   │────▶│ FastQC  │────▶│  Quality Reports │
@@ -67,11 +67,13 @@ The pipeline is built using [Nextflow](https://www.nextflow.io) and processes sa
 Test the pipeline with built-in data:
 
 **From GitHub (if repository is public):**
+
 ```bash
 nextflow run sathyasjali/nf-core-crispresso -profile test,docker --outdir results
 ```
 
 **Clone and run locally:**
+
 ```bash
 git clone https://github.com/sathyasjali/nf-core-crispresso.git
 cd nf-core-crispresso
@@ -116,6 +118,7 @@ nextflow run sathyasjali/nf-core-crispresso \
 For more details and further functionality, please refer to the [usage documentation](docs/usage.md) and the [parameter documentation](docs/parameters.md).
 =======
 **Option A: Global sequences for all samples**
+
 ```bash
 nextflow run . \
   --input samplesheet.csv \
@@ -126,6 +129,7 @@ nextflow run . \
 ```
 
 **Option B: Per-sample sequences (no global sequences needed)**
+
 ```bash
 nextflow run . \
   --input samplesheet_with_sequences.csv \
@@ -134,6 +138,7 @@ nextflow run . \
 ```
 
 **Option C: Memory-optimized execution for systems with limited RAM**
+
 ```bash
 nextflow run . \
   --input samplesheet.csv \
@@ -158,11 +163,12 @@ The pipeline includes three ready-to-use samplesheet templates:
    - Allele-specific editing experiment
 
 To use the examples with real data:
+
 ```bash
 # Test with base editor data
 nextflow run sathyasjali/nf-core-crispresso --input assets/samplesheet_test.csv -profile docker --outdir results
 
-# Test with all examples  
+# Test with all examples
 nextflow run sathyasjali/nf-core-crispresso --input assets/samplesheet_examples.csv -profile docker --outdir results
 ```
 
@@ -175,10 +181,12 @@ nextflow run sathyasjali/nf-core-crispresso --input assets/samplesheet_examples.
 ### Sequence Specification (Choose One Approach)
 
 **Option 1: Global Sequences (Traditional)**
-- `--amplicon_seq`: Reference amplicon sequence for CRISPResso analysis  
+
+- `--amplicon_seq`: Reference amplicon sequence for CRISPResso analysis
 - `--guide_seq`: Guide RNA sequence used for targeting
 
 **Option 2: Per-Sample Sequences (Enhanced)**
+
 - Include `amplicon_seq` and `guide_seq` columns in your samplesheet
 - `amplicon_seq` column is required, `guide_seq` column is optional
 - Per-sample sequences take precedence over global parameters
@@ -207,7 +215,7 @@ nextflow run sathyasjali/nf-core-crispresso --input assets/samplesheet_examples.
 The pipeline generates:
 
 - **CRISPResso2 Analysis**: Detailed editing analysis with HTML reports
-- **Quality Control**: FastQC reports for input data  
+- **Quality Control**: FastQC reports for input data
 - **Summary Reports**: MultiQC aggregated reports
 - **Enhanced CSV Results**: Three-tier machine-readable analysis files with comprehensive metrics
 - **Pipeline Information**: Execution reports and software versions
@@ -217,27 +225,33 @@ The pipeline generates:
 The pipeline automatically generates three types of CSV files for comprehensive downstream analysis:
 
 #### 1. Summary CSV (`*_summary.csv`)
+
 Contains key metrics per sample:
+
 - **Sample identification**: Sample ID, amplicon sequence, and guide sequence information
 - **Sequence details**: Amplicon length, guide length, GC content calculations
-- **Read statistics**: Total read count, mapped read count, mapping percentages  
+- **Read statistics**: Total read count, mapped read count, mapping percentages
 - **Reference mapping**: Number of reads mapped to reference sequence with percentages
 - **Editing efficiency**: Overall modification rates and editing percentages
 - **Indel analysis**: Total indels, insertion/deletion counts, most frequent indel sizes
 - **Modification breakdown**: Reads with insertions only, deletions only, substitutions only, and mixed modifications
 - **Quality metrics**: FastQC statistics (total sequences, GC content, read length)
 
-#### 2. Detailed Results CSV (`*_detailed_results.csv`)  
+#### 2. Detailed Results CSV (`*_detailed_results.csv`)
+
 Position-specific modification data (up to 250 positions):
+
 - Per-position insertion frequencies
-- Per-position deletion frequencies  
+- Per-position deletion frequencies
 - Per-position substitution frequencies
 - Total modifications per position
 - Read depth per position
 - Compatible with R, Python, Excel for plotting and statistical analysis
 
 #### 3. Reference Information CSV (`*_reference_info.csv`)
+
 Reference sequence metadata:
+
 - Sample ID and amplicon sequence
 - Guide sequence information
 - Sequence lengths and GC content calculations
@@ -246,6 +260,7 @@ Reference sequence metadata:
 ## Testing Status ✅
 
 Successfully validated with:
+
 - **Docker container compatibility** - Uses biocontainers for optimal Nextflow integration
 - **Per-sample sequence processing** - Validated with multiple different amplicon/guide combinations
 - **Memory optimization** - Tested on systems with 20GB total memory allocation
@@ -258,16 +273,18 @@ Successfully validated with:
 ### Container Information
 
 This pipeline uses optimized containers for reliable execution:
+
 - **CRISPResso2**: `quay.io/biocontainers/crispresso2:2.3.3--py39hff726c5_0`
-- **MultiQC**: `quay.io/biocontainers/multiqc:1.9--py_1` 
+- **MultiQC**: `quay.io/biocontainers/multiqc:1.9--py_1`
 - **FastQC**: Standard nf-core biocontainer modules
 
 These containers provide:
+
 - Full functionality with Nextflow compatibility
 - Reliable container entry points for workflow execution
 - Cross-platform compatibility for different architectures
 - Memory-optimized execution profiles
->>>>>>> origin/master
+  > > > > > > > origin/master
 
 ## Pipeline output
 
@@ -278,7 +295,7 @@ The pipeline generates comprehensive CRISPR editing analysis results including:
 
 - **Quality Control Reports**: FastQC analysis of input FASTQ files
 - **CRISPR Editing Analysis**: CRISPResso2 detailed editing efficiency reports with mutation quantification
-- **Summary CSV Files**: Machine-readable results with editing statistics and position-specific modifications  
+- **Summary CSV Files**: Machine-readable results with editing statistics and position-specific modifications
 - **Aggregate Reports**: MultiQC dashboard combining all quality control and analysis results
 
 ## Credits
@@ -289,6 +306,7 @@ We thank the following people for their extensive assistance in the development 
 
 - The [CRISPResso2](https://crispresso.pinellolab.partners.org/) development team for creating the underlying analysis tools
 - The [nf-core](https://nf-co.re/) community for providing the framework and best practices
+
 ## Contributions and Support
 
 If you would like to contribute to this pipeline, please see the [contributing guidelines](.github/CONTRIBUTING.md).

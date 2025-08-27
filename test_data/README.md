@@ -18,7 +18,7 @@ nextflow run sathyasjali/nf-core-crispresso -profile test,docker --outdir result
 # Base editor test
 nextflow run sathyasjali/nf-core-crispresso -profile test_base_editor,docker --outdir results
 
-# NHEJ test  
+# NHEJ test
 nextflow run sathyasjali/nf-core-crispresso -profile test_nhej,docker --outdir results
 ```
 
@@ -34,13 +34,14 @@ For additional validation with real experimental data, users can access the offi
 
 ## Test Data Characteristics
 
-| Dataset | Type | Reads | Expected Outcome |
-|---------|------|-------|------------------|
-| base_editor | Single-end | ~5,000 | Precise base substitutions |
-| nhej (R1/R2) | Paired-end | ~3,000 each | Insertions/deletions |
+| Dataset      | Type       | Reads       | Expected Outcome           |
+| ------------ | ---------- | ----------- | -------------------------- |
+| base_editor  | Single-end | ~5,000      | Precise base substitutions |
+| nhej (R1/R2) | Paired-end | ~3,000 each | Insertions/deletions       |
 
 These datasets provide comprehensive validation of:
+
 - FastQC quality control
-- CRISPResso2 editing analysis  
+- CRISPResso2 editing analysis
 - CSV summary generation
 - MultiQC reporting
