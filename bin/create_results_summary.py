@@ -5,6 +5,7 @@ import csv
 import json
 import os
 import sys
+import zipfile
 from pathlib import Path
 import re
 
@@ -274,7 +275,7 @@ def create_detailed_csv(sample_id, crispresso_dir, output_file):
 def main():
     parser = argparse.ArgumentParser(description='Create CSV summaries from CRISPResso2 results')
     parser.add_argument('--crispresso_dir', required=True, help='CRISPResso2 output directory')
-    parser.add_argument('--fastqc_zip', help='FastQC ZIP file')
+    parser.add_argument('--fastqc_zip', nargs='*', help='FastQC ZIP file(s)')
     parser.add_argument('--sample_id', required=True, help='Sample identifier')
     parser.add_argument('--amplicon_seq', required=True, help='Amplicon sequence')
     parser.add_argument('--guide_seq', help='Guide RNA sequence')
@@ -313,8 +314,17 @@ def main():
 
     # Parse FastQC data
     fastqc_data = {}
-    if args.fastqc_zip and os.path.exists(args.fastqc_zip):
-        fastqc_data = parse_fastqc_data(args.fastqc_zip)
+    if args.fastqc_zip:
+        for fastqc_zip_file in args.fastqc_zip:
+            if os.path.exists(fastqc_zip_file):
+                single_fastqc_data = parse_fastqc_data(fastqc_zip_file)
+                # Merge or use first file's data (you can modify logic as needed)
+                if not fastqc_data:
+                    fastqc_data = single_fastqc_data
+                else:
+                    # For paired-end, we can combine some metrics or use average
+                    if 'total_sequences' in single_fastqc_data:
+                        fastqc_data['total_sequences'] = fastqc_data.get('total_sequences', 0) + single_fastqc_data['total_sequences']
 
     # Parse indel histogram for additional metrics
     indel_file = os.path.join(crispresso_subdir, 'Indel_histogram.txt')

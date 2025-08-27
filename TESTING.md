@@ -8,8 +8,8 @@ Comprehensive testing guide for the nf-core-crispresso pipeline.
 
 ## Available Test Datasets
 
-### Built-in Publication Data
-Located in `test_data/publication/`:
+### Built-in Test Data
+Located in `test_data/crispresso_examples/`:
 - **`base_editor.fastq.gz`** (1.66 MB) - Single-end base editing validation
 - **`nhej.r1.fastq.gz`** + **`nhej.r2.fastq.gz`** (1.02 + 1.10 MB) - Paired-end NHEJ analysis
 
@@ -34,12 +34,18 @@ nextflow run . -profile test_nhej,docker --outdir nhej_results
 ```bash
 nextflow run . --input my_samplesheet.csv --outdir my_results -profile docker
 ```
-**Remote (if repository is public):**
+
+## Running from Remote Repository
+
+> **Note**: Remote execution currently requires the repository to be public and properly configured. 
+> For development and testing, use local execution instead.
+
+**Remote (when repository is public and published):**
 ```bash
-nextflow run main.nf -profile test_nhej,docker --outdir nhej_results
+nextflow run sathyasjali/nf-core-crispresso -profile test_nhej,docker --outdir nhej_results
 ```
 
-**Clone and Run Locally:**
+**Recommended: Clone and Run Locally:**
 ```bash
 git clone https://github.com/sathyasjali/nf-core-crispresso.git
 cd nf-core-crispresso
@@ -69,21 +75,15 @@ sample,fastq_1,fastq_2,amplicon_seq,guide_seq
 my_sample,/path/to/sample.fastq.gz,,YOUR_AMPLICON_SEQUENCE,YOUR_GUIDE_SEQUENCE
 ```
 
-### 3. Run Pipeline
-**Remote (if repository is public):**
+### 4. Run Pipeline
+**Local execution (recommended):**
 ```bash
-<<<<<<< HEAD
-nextflow run main.nf --input my_samplesheet.csv --outdir my_results
-=======
-nextflow run sathyasjali/nf-core-crispresso --input my_samplesheet.csv --outdir my_results -profile docker
+nextflow run . --input my_samplesheet.csv --outdir my_results -profile docker
 ```
 
-**Clone and Run Locally:**
+**Remote (only when repository is publicly published):**
 ```bash
-git clone https://github.com/sathyasjali/nf-core-crispresso.git
-cd nf-core-crispresso
-nextflow run . --input my_samplesheet.csv --outdir my_results -profile docker
->>>>>>> origin/master
+nextflow run sathyasjali/nf-core-crispresso --input my_samplesheet.csv --outdir my_results -profile docker
 ```
 
 ## Expected Test Results
@@ -101,12 +101,12 @@ nextflow run . --input my_samplesheet.csv --outdir my_results -profile docker
 ## Troubleshooting
 
 ### Common Issues
-1. **File not found errors**: Ensure test data files are present in `test_data/publication/`
+1. **File not found errors**: Ensure test data files are present in `test_data/crispresso_examples/`
 2. **Schema validation errors**: Check that FASTQ files are gzipped (`.fastq.gz` extension required)
 3. **Memory errors**: Use `--max_memory` parameter to limit resource usage
 
 ### Getting Help
-- **Issues**: Report problems at [repository issues](https://github.com/main.nf/issues)
+- **Issues**: Report problems at [repository issues](https://github.com/sathyasjali/nf-core-crispresso/issues)
 - **Documentation**: See `docs/` directory for detailed usage instructions
 
 ## Additional Test Data
@@ -123,7 +123,7 @@ echo "sample,fastq_1,fastq_2,amplicon_seq,guide_seq" > fanc_test.csv
 echo "FANC_test,FANC.Cas9.fastq.gz,,GACGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGGCATGGCCCCATTCGCACGGCTCT,GGAATCCCTTCTGCAGCACC" >> fanc_test.csv
 
 # Run test
-nextflow run main.nf --input fanc_test.csv --outdir fanc_results
+nextflow run . --input fanc_test.csv --outdir fanc_results -profile docker
 ```
 
 ---
