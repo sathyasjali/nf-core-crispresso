@@ -1,5 +1,9 @@
-# [![nf-core/crispresso](docs/images/nf-core-crispresso_logo_light.png#gh-light-mode-only)](https://github.com/sathyasjali/nf-core-crispresso)
-[![nf-core/crispresso](docs/images/nf-core-crispresso_logo_dark.png#gh-dark-mode-only)](https://github.com/sathyasjali/nf-core-crispresso)
+<h1>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/nf-core-crispresso_logo_dark.png">
+    <img alt="nf-core/crispresso" src="docs/images/nf-core-crispresso_logo_light.png">
+  </picture>
+</h1>
 
 [![GitHub Actions CI Status](https://github.com/sathyasjali/nf-core-crispresso/actions/workflows/ci.yml/badge.svg)](https://github.com/sathyasjali/nf-core-crispresso/actions/workflows/ci.yml)
 [![GitHub Actions Linting Status](https://github.com/sathyasjali/nf-core-crispresso/actions/workflows/linting.yml/badge.svg)](https://github.com/sathyasjali/nf-core-crispresso/actions/workflows/linting.yml)
