@@ -16,8 +16,6 @@
 
 **nf-core/crispresso** is a bioinformatics pipeline that can be used to analyse CRISPR editing data obtained from amplicon sequencing experiments. It takes a samplesheet and FASTQ files as input, performs quality control (QC), alignment to reference amplicons, quantifies editing efficiency and produces comprehensive editing reports with detailed mutation analysis.
 
-![nf-core/crispresso metro map](docs/images/nf-core-crispresso_logo_light.png)
-
 1. Read QC ([FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
 2. CRISPR editing analysis ([CRISPResso2](https://crispresso.pinellolab.partners.org/))
 3. Results summary generation (Custom Python Script)
