@@ -26,9 +26,8 @@ include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_cris
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-// TODO nf-core: Remove this line if you don't need a FASTA file
-//   This is an example of how to use getGenomeAttribute() to fetch parameters
-//   from igenomes.config using `--genome`
+// This pipeline primarily works with amplicon sequences provided in samplesheet
+// Genome FASTA file is optional for this workflow
 params.fasta = getGenomeAttribute('fasta')
 
 /*

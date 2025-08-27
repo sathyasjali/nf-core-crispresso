@@ -20,8 +20,6 @@
 
 ## Pipeline summary
 
-<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps of the pipeline -->
-
 The pipeline is built using [Nextflow](https://www.nextflow.io) and processes samples through the following steps:
 
 1. **Read Quality Control** ([FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
