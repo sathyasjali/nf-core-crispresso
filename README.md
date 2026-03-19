@@ -1,13 +1,13 @@
 <h1>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/images/nf-core-crispresso_logo_dark.png">
-    <img alt="nf-core/crispresso" src="docs/images/nf-core-crispresso_logo_light.png">
+    <img alt="nf-core/crispresso" src="docs/images/nf-core-crispresso_logo_light.png" width="300">
   </picture>
 </h1>
 
 [![GitHub Actions CI Status](https://github.com/sathyasjali/nf-core-crispresso/actions/workflows/ci.yml/badge.svg)](https://github.com/sathyasjali/nf-core-crispresso/actions/workflows/ci.yml)
 [![GitHub Actions Linting Status](https://github.com/sathyasjali/nf-core-crispresso/actions/workflows/linting.yml/badge.svg)](https://github.com/sathyasjali/nf-core-crispresso/actions/workflows/linting.yml)
-[![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A524.10.5-23aa62.svg)](https://www.nextflow.io/)
+[![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A525.04.6-23aa62.svg)](https://www.nextflow.io/)
 [![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://conda.io/)
 [![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
 [![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)
