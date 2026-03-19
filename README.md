@@ -1,7 +1,7 @@
 <h1>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/images/nf-core-crispresso_logo_dark.png">
-    <img alt="nf-core/crispresso" src="docs/images/nf-core-crispresso_logo_light.png" width="300">
+    <img alt="nf-core/crispresso" src="docs/images/nf-core-crispresso_logo_light.png" width="150">
   </picture>
 </h1>
 
