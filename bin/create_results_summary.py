@@ -134,6 +134,32 @@ def parse_fastqc_data(fastqc_zip):
 
     return fastqc_data
 
+def parse_nanoplot_data(nanostats_file):
+    """Extract basic NanoPlot statistics from NanoStats.txt"""
+    nano_data = {
+        'total_sequences': 'N/A',
+        'sequence_length': 'N/A',
+        'percent_gc': 'N/A'
+    }
+    try:
+        with open(nanostats_file, 'r') as f:
+            for line in f:
+                line = line.strip()
+                if ':' in line:
+                    key, val = line.split(':', 1)
+                    key = key.strip()
+                    val = val.strip().replace(',', '')
+                    if key == 'Number of reads':
+                        nano_data['total_sequences'] = val
+                    elif key == 'Mean read length':
+                        nano_data['sequence_length'] = val
+                    elif key == 'Mean read quality':
+                        nano_data['mean_read_quality'] = val
+    except Exception as e:
+        print(f"Error parsing NanoPlot data: {e}")
+
+    return nano_data
+
 def create_summary_csv(sample_id, crispresso_results, fastqc_data, amplicon_seq, guide_seq, output_file):
     """Create a summary CSV with key metrics"""
 
@@ -276,6 +302,8 @@ def main():
     parser = argparse.ArgumentParser(description='Create CSV summaries from CRISPResso2 results')
     parser.add_argument('--crispresso_dir', required=True, help='CRISPResso2 output directory')
     parser.add_argument('--fastqc_zip', nargs='*', help='FastQC ZIP file(s)')
+    parser.add_argument('--nanostats', help='NanoPlot NanoStats.txt file')
+    parser.add_argument('--platform', default='illumina', choices=['illumina', 'nanopore'], help='Sequencing platform')
     parser.add_argument('--sample_id', required=True, help='Sample identifier')
     parser.add_argument('--amplicon_seq', required=True, help='Amplicon sequence')
     parser.add_argument('--guide_seq', help='Guide RNA sequence')
@@ -312,19 +340,21 @@ def main():
         mapping_stats = parse_mapping_statistics(mapping_file)
         crispresso_results.update(mapping_stats)
 
-    # Parse FastQC data
+    # Parse QC data based on platform
     fastqc_data = {}
-    if args.fastqc_zip:
-        for fastqc_zip_file in args.fastqc_zip:
-            if os.path.exists(fastqc_zip_file):
-                single_fastqc_data = parse_fastqc_data(fastqc_zip_file)
-                # Merge or use first file's data (you can modify logic as needed)
-                if not fastqc_data:
-                    fastqc_data = single_fastqc_data
-                else:
-                    # For paired-end, we can combine some metrics or use average
-                    if 'total_sequences' in single_fastqc_data:
-                        fastqc_data['total_sequences'] = fastqc_data.get('total_sequences', 0) + single_fastqc_data['total_sequences']
+    if args.platform == 'nanopore':
+        if args.nanostats and os.path.exists(args.nanostats):
+            fastqc_data = parse_nanoplot_data(args.nanostats)
+    else:
+        if args.fastqc_zip:
+            for fastqc_zip_file in args.fastqc_zip:
+                if os.path.exists(fastqc_zip_file):
+                    single_fastqc_data = parse_fastqc_data(fastqc_zip_file)
+                    if not fastqc_data:
+                        fastqc_data = single_fastqc_data
+                    else:
+                        if 'total_sequences' in single_fastqc_data:
+                            fastqc_data['total_sequences'] = fastqc_data.get('total_sequences', 0) + single_fastqc_data['total_sequences']
 
     # Parse indel histogram for additional metrics
     indel_file = os.path.join(crispresso_subdir, 'Indel_histogram.txt')

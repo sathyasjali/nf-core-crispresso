@@ -4,6 +4,8 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 include { FASTQC                 } from '../modules/nf-core/fastqc/main'
+include { NANOPLOT               } from '../modules/local/nanoplot/main'
+include { NANOFILT               } from '../modules/local/nanofilt/main'
 include { CRISPRESSO2            } from '../modules/nf-core/crispresso2/main'
 include { RESULTS_SUMMARY        } from '../modules/local/results_summary'
 include { MULTIQC                } from '../modules/nf-core/multiqc/main'
@@ -26,35 +28,75 @@ workflow CRISPRESSO {
 
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
+    ch_qc_for_summary = Channel.empty()
 
-    //
-    // MODULE: Run FastQC
-    //
-    FASTQC (
-        ch_samplesheet
-    )
-    ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]})
-    ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+    if (params.platform == 'nanopore') {
+        //
+        // MODULE: Run NanoPlot for nanopore QC
+        //
+        NANOPLOT (
+            ch_samplesheet
+        )
+        ch_multiqc_files = ch_multiqc_files.mix(NANOPLOT.out.stats.collect{it[1]})
+        ch_versions = ch_versions.mix(NANOPLOT.out.versions.first())
+        ch_qc_for_summary = NANOPLOT.out.stats.collect{it[1]}
 
-    //
-    // MODULE: Run CRISPResso2 - handles per-sample sequences from meta
-    //
-    CRISPRESSO2 (
-        ch_samplesheet,
-        params.amplicon_seq ?: "",
-        params.guide_seq ?: ""
-    )
-    ch_multiqc_files = ch_multiqc_files.mix(CRISPRESSO2.out.html.collect{it[1]})
-    ch_versions = ch_versions.mix(CRISPRESSO2.out.versions.first())
+        //
+        // MODULE: Optional NanoFilt filtering
+        //
+        if (params.nanofilt_quality || params.nanofilt_length || params.nanofilt_maxlength) {
+            NANOFILT (
+                ch_samplesheet
+            )
+            ch_reads_for_crispresso = NANOFILT.out.reads
+            ch_versions = ch_versions.mix(NANOFILT.out.versions.first())
+        } else {
+            ch_reads_for_crispresso = ch_samplesheet
+        }
+
+        //
+        // MODULE: Run CRISPResso2 on (optionally filtered) reads
+        //
+        CRISPRESSO2 (
+            ch_reads_for_crispresso,
+            params.amplicon_seq ?: "",
+            params.guide_seq ?: ""
+        )
+        ch_multiqc_files = ch_multiqc_files.mix(CRISPRESSO2.out.html.collect{it[1]})
+        ch_versions = ch_versions.mix(CRISPRESSO2.out.versions.first())
+
+    } else {
+        //
+        // MODULE: Run FastQC (Illumina)
+        //
+        FASTQC (
+            ch_samplesheet
+        )
+        ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]})
+        ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+        ch_qc_for_summary = FASTQC.out.zip.collect{it[1]}
+
+        //
+        // MODULE: Run CRISPResso2
+        //
+        CRISPRESSO2 (
+            ch_samplesheet,
+            params.amplicon_seq ?: "",
+            params.guide_seq ?: ""
+        )
+        ch_multiqc_files = ch_multiqc_files.mix(CRISPRESSO2.out.html.collect{it[1]})
+        ch_versions = ch_versions.mix(CRISPRESSO2.out.versions.first())
+    }
 
     //
     // MODULE: Create Results Summary CSV
     //
     RESULTS_SUMMARY (
         CRISPRESSO2.out.results,
-        FASTQC.out.zip.collect{it[1]},
+        ch_qc_for_summary,
         params.amplicon_seq ?: "",
-        params.guide_seq ?: ""
+        params.guide_seq ?: "",
+        params.platform
     )
     ch_versions = ch_versions.mix(RESULTS_SUMMARY.out.versions.first())
 

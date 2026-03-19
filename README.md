@@ -18,16 +18,26 @@
 
 ## Introduction
 
-**nf-core/crispresso** is a bioinformatics pipeline that can be used to analyse CRISPR editing data obtained from amplicon sequencing experiments. It takes a samplesheet and FASTQ files as input, performs quality control (QC), alignment to reference amplicons, quantifies editing efficiency and produces comprehensive editing reports with detailed mutation analysis.
+**nf-core/crispresso** is a bioinformatics pipeline that can be used to analyse CRISPR editing data obtained from amplicon sequencing experiments. It supports both **Illumina** (short-read) and **Oxford Nanopore** (long-read) sequencing platforms. It takes a samplesheet and FASTQ files as input, performs quality control (QC), alignment to reference amplicons, quantifies editing efficiency and produces comprehensive editing reports with detailed mutation analysis.
+
+### Illumina workflow
 
 1. Read QC ([FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
 2. CRISPR editing analysis ([CRISPResso2](https://crispresso.pinellolab.partners.org/))
 3. Results summary generation (Custom Python Script)
    - Three-tier CSV output system with comprehensive metrics
-   - Position-specific modification analysis (up to 250 positions)  
+   - Position-specific modification analysis (up to 250 positions)
    - Reference sequence information with GC content calculations
    - Automated summary statistics and quality control metrics
 4. Aggregate reporting ([MultiQC](http://multiqc.info/))
+
+### Nanopore workflow
+
+1. Read QC ([NanoPlot](https://github.com/wdecoster/NanoPlot))
+2. Optional read filtering ([NanoFilt](https://github.com/wdecoster/nanofilt)) — quality, length, and max-length filtering
+3. CRISPR editing analysis ([CRISPResso2](https://crispresso.pinellolab.partners.org/)) — with nanopore-optimized alignment parameters
+4. Results summary generation (Custom Python Script)
+5. Aggregate reporting ([MultiQC](http://multiqc.info/))
 
 > **Note**
 > The pipeline supports both single-end and paired-end sequencing data. Sequences can be specified globally for all samples or individually per sample in the samplesheet for multi-target experiments.
@@ -52,22 +62,9 @@ Each row represents a fastq file (single-end) or a pair of fastq files (paired-e
 > **Warning**
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _except for parameters_; see [docs](https://nf-co.re/usage/configuration#custom-configuration-files).
 
-Each row represents a FASTQ file (single-end) or a pair of FASTQ files (paired-end). You must provide the amplicon sequence and guide RNA sequence for each sample. If multiple samples share the same amplicon and guide sequences, they can use the same values.
-
 Now, you can run the pipeline using:
 
-```bash
-nextflow run . \
-  --input samplesheet.csv \
-  --outdir results \
-  -profile docker
-```
-
-> **Warning**
-> Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _except for parameters_; see [docs](https://nf-co.re/usage/configuration#custom-configuration-files).
-
-Now, you can run the pipeline using:
-
+**Illumina (default):**
 ```bash
 nextflow run . \
    --input samplesheet.csv \
@@ -77,8 +74,36 @@ nextflow run . \
    -profile <docker/singularity/.../institute>
 ```
 
-> **Warning**
-> Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _except for parameters_; see [docs](https://nf-co.re/usage/configuration#custom-configuration-files).
+**Nanopore:**
+```bash
+nextflow run sathyasjali/nf-core-crispresso \
+   --input samplesheet.csv \
+   --outdir <OUTDIR> \
+   --platform nanopore \
+   --amplicon_seq <AMPLICON_SEQUENCE> \
+   --guide_seq <GUIDE_SEQUENCE> \
+   -profile <docker/singularity/.../institute>
+```
+
+**Nanopore with read filtering:**
+```bash
+nextflow run sathyasjali/nf-core-crispresso \
+   --input samplesheet.csv \
+   --outdir <OUTDIR> \
+   --platform nanopore \
+   --nanofilt_quality 7 \
+   --nanofilt_length 100 \
+   --amplicon_seq <AMPLICON_SEQUENCE> \
+   --guide_seq <GUIDE_SEQUENCE> \
+   -profile <docker/singularity/.../institute>
+```
+
+**To run locally after cloning:**
+```bash
+git clone https://github.com/sathyasjali/nf-core-crispresso.git
+cd nf-core-crispresso
+nextflow run . --input samplesheet.csv --outdir results -profile docker
+```
 
 For more details and further functionality, please refer to the [usage documentation](docs/usage.md) and the [parameter documentation](docs/usage.md).
 
@@ -89,7 +114,8 @@ To see the results of an example test run with a full size dataset refer to the 
 The pipeline generates:
 
 - **CRISPResso2 Analysis**: Detailed editing analysis with HTML reports
-- **Quality Control**: FastQC reports for input data
+- **Quality Control**: FastQC reports (Illumina) or NanoPlot reports (nanopore) for input data
+- **Filtered Reads**: NanoFilt filtered reads (nanopore only, when filtering parameters are set)
 - **Summary Reports**: MultiQC aggregated reports
 - **Enhanced CSV Results**: Three-tier machine-readable analysis files with comprehensive metrics
 - **Pipeline Information**: Execution reports and software versions
@@ -152,6 +178,14 @@ If you use this pipeline for your analysis, please cite the repository: GitHub r
 > Kendell Clement, Holger Rees, Matthew C. Canver, Jason M. Gehrke, Reza Farouni, Josue K. Nye, Poorvi Kulkarni, Carrie A. Whitfield, Evangelos Karagiannis, M. Inmaculada Leyva-Diaz, Gerald Schwartz, Alex Packer, Scot A. Wolfe, J. Keith Joung, Stuart H. Orkin, Luca Pinello.
 >
 > _Nature Biotechnology._ 2019 Mar;37(3):224-226. doi: [10.1038/s41587-019-0032-3](https://doi.org/10.1038/s41587-019-0032-3). PMID: 30778233.
+
+**If you use the nanopore workflow, please also cite:**
+
+> **CRISPR-Cas guide RNA indel analysis using CRISPResso2 with Nanopore sequencing data.**
+>
+> Grant R. McFarlane, Bjorn Petersen, Hans-Peter Piepho, Chris Moran, Sally A. Williamson.
+>
+> _BMC Research Notes._ 2024;17:205. doi: [10.1186/s13104-024-06864-w](https://doi.org/10.1186/s13104-024-06864-w). PMID: 39060951.
 
 An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 

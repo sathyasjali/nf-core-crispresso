@@ -82,6 +82,40 @@
                 }
             }
         },
+        "platform_options": {
+            "title": "Platform options",
+            "type": "object",
+            "fa_icon": "fas fa-microchip",
+            "description": "Sequencing platform selection and nanopore-specific parameters.",
+            "properties": {
+                "platform": {
+                    "type": "string",
+                    "default": "illumina",
+                    "description": "Sequencing platform used to generate the data.",
+                    "enum": ["illumina", "nanopore"],
+                    "fa_icon": "fas fa-microchip",
+                    "help_text": "Select the sequencing platform. This controls which QC tools are used (FastQC for Illumina, NanoPlot for nanopore) and tunes CRISPResso2 alignment parameters for the platform's error profile."
+                },
+                "nanofilt_quality": {
+                    "type": "integer",
+                    "description": "Minimum average read quality for NanoFilt filtering (nanopore only).",
+                    "fa_icon": "fas fa-filter",
+                    "help_text": "Reads with an average quality below this threshold will be removed. Only used when platform is 'nanopore'. Common values: 7-10."
+                },
+                "nanofilt_length": {
+                    "type": "integer",
+                    "description": "Minimum read length for NanoFilt filtering (nanopore only).",
+                    "fa_icon": "fas fa-ruler-horizontal",
+                    "help_text": "Reads shorter than this length will be removed. Only used when platform is 'nanopore'."
+                },
+                "nanofilt_maxlength": {
+                    "type": "integer",
+                    "description": "Maximum read length for NanoFilt filtering (nanopore only).",
+                    "fa_icon": "fas fa-ruler-horizontal",
+                    "help_text": "Reads longer than this length will be removed. Only used when platform is 'nanopore'. Useful for filtering out chimeric or concatenated reads."
+                }
+            }
+        },
         "crispresso2_options": {
             "title": "CRISPResso2 options",
             "type": "object",
@@ -282,6 +316,9 @@
         },
         {
             "$ref": "#/$defs/reference_genome_options"
+        },
+        {
+            "$ref": "#/$defs/platform_options"
         },
         {
             "$ref": "#/$defs/crispresso2_options"

@@ -7,9 +7,10 @@ process RESULTS_SUMMARY {
 
     input:
     tuple val(meta), path(crispresso_output)
-    path fastqc_zip
+    path qc_data
     val amplicon_seq
     val guide_seq
+    val platform
 
     output:
     tuple val(meta), path("${prefix}_summary.csv"),               emit: summary_csv
@@ -25,10 +26,12 @@ process RESULTS_SUMMARY {
     crispresso_dir = crispresso_output.find { it.isDirectory() } ?: ""
     def amplicon_sequence = meta.amplicon_seq ?: amplicon_seq ?: ""
     def guide_sequence = meta.guide_seq ?: guide_seq ?: ""
+    def qc_arg = platform == 'nanopore' ? "--nanostats ${qc_data}" : "--fastqc_zip ${qc_data}"
     """
     create_results_summary.py \\
         --crispresso_dir ${crispresso_dir} \\
-        --fastqc_zip ${fastqc_zip} \\
+        ${qc_arg} \\
+        --platform ${platform} \\
         --sample_id ${meta.id} \\
         --amplicon_seq "${amplicon_sequence}" \\
         --guide_seq "${guide_sequence}" \\
@@ -45,6 +48,7 @@ process RESULTS_SUMMARY {
     """
     touch ${prefix}_summary.csv
     touch ${prefix}_detailed_results.csv
+    touch ${prefix}_reference_info.csv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
